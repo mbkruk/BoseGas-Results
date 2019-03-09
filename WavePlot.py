@@ -14,9 +14,9 @@ with open(sys.argv[1],"r") as f:
 	im = []
 
 	for i in range(2*nmax+1):
-		re.append(float(data[3+i]))
+		re.append(float(data[4+i]))
 	for i in range(2*nmax+1):
-		im.append(float(data[4+2*nmax+i]))
+		im.append(float(data[5+2*nmax+i]))
 	alphas = np.vectorize(complex)(re,im)
 
 k = []
