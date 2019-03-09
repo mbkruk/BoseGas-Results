@@ -144,3 +144,4 @@ else:
 
 range = findRangeConstExtraModes(N,const)
 print(range,flush=True)
+print((range[0]+range[1])/2.0,flush=True)
