@@ -5,11 +5,6 @@ import numpy as np
 from matplotlib import pyplot as plt
 from scipy import optimize as spopt
 
-if len(sys.argv)!=2:
-	print("usage: WavePlot.py <BGMC output file>")
-	print("Plots wave function and fits gaussian function to it with sigma = standard deviation, mu = mean.")
-	exit(1)
-
 with open(sys.argv[1],"r") as f:
 	data = f.read().split()
 	N = int(data[0])

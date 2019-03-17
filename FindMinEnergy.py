@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 
 help = '''
-	usage: FindMinEnergy.py <particle count> <extra mode pairs>
+	usage: FindMinEnergy.py <particle count> <interaction strength>
 
-	Interaction strength range for which energy reaches minimum.
+	Find number of extra mode pairs for which energy reaches minimum.
+	Interaction strength should be negative real number.
 	Defalt interaction type is gaussian.
 '''
 
@@ -12,15 +13,13 @@ import subprocess
 import random
 import numpy as np
 
-options = []
-
 def findMinConstGamma(N,gamma):
 	extra = 0
 	energies = []
 	print("extra mode pairs".rjust(16),"energy".rjust(16),flush=True)
 	while extra<10:
-		result = subprocess.run(["bgmc",*options,"-N",str(N),"-g",str(gamma),"-n","1","-e",str(extra)],stdout=subprocess.PIPE)
-		E = float(result.stdout.decode("utf-8").split('\n')[-2].split()[5])
+		result = subprocess.run(["bgmc","-N",str(N),"-g",str(gamma),"-n","1","-e",str(extra)],stdout=subprocess.PIPE)
+		E = float(result.stdout.decode("utf-8").split('\n')[-2].split()[6])
 		if len(energies)==3:
 			energies = energies[1:]
 		energies.append(E)
@@ -41,21 +40,12 @@ def findRangeConstExtraModes(N,extraModePairs):
 	minMaxGamma = float('inf')
 	data = {-1:[],0:[],1:[]}
 	def step(gamma):
-		result = subprocess.run(["bgmc",*options,"-N",str(N),"-g",str(gamma),"-n","1","-e",str(extraModePairs-1)],stdout=subprocess.PIPE)
-		stats = result.stdout.decode("utf-8").split('\n')[-2].split()
-		E0 = float(stats[5])
-		uE0 = float(stats[6])
-
-		result = subprocess.run(["bgmc",*options,"-N",str(N),"-g",str(gamma),"-n","1","-e",str(extraModePairs)],stdout=subprocess.PIPE)
-		stats = result.stdout.decode("utf-8").split('\n')[-2].split()
-		E1 = float(stats[5])
-		uE1 = float(stats[6])
-
-		result = subprocess.run(["bgmc",*options,"-N",str(N),"-g",str(gamma),"-n","1","-e",str(extraModePairs+1)],stdout=subprocess.PIPE)
-		stats = result.stdout.decode("utf-8").split('\n')[-2].split()
-		E2 = float(stats[5])
-		uE2 = float(stats[6])
-
+		result = subprocess.run(["bgmc","-N",str(N),"-g",str(gamma),"-n","1","-e",str(extraModePairs-1)],stdout=subprocess.PIPE)
+		E0 = float(result.stdout.decode("utf-8").split('\n')[-2].split()[6])
+		result = subprocess.run(["bgmc","-N",str(N),"-g",str(gamma),"-n","1","-e",str(extraModePairs)],stdout=subprocess.PIPE)
+		E1 = float(result.stdout.decode("utf-8").split('\n')[-2].split()[6])
+		result = subprocess.run(["bgmc","-N",str(N),"-g",str(gamma),"-n","1","-e",str(extraModePairs+1)],stdout=subprocess.PIPE)
+		E2 = float(result.stdout.decode("utf-8").split('\n')[-2].split()[6])
 		if E0<E1 and E1<E2:
 			order = 1
 		elif E2>E1 and E2>E1:
