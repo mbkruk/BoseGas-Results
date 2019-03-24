@@ -63,5 +63,5 @@ sigma = ToExpression[$ScriptCommandLine[[3]]];
 nmax = ToExpression[$ScriptCommandLine[[4]]];
 
 For[n = 0, n <= 2*nmax, n++,
-	Print[NIntegrate[ funcPeriodic[x-y,sigma] Cos[2 Pi (n x - n y)], {x, 0, 1}, {y, 0, 1}]];
+	Print[NIntegrate[ funcPeriodic[x-y,sigma] Cos[2 Pi (n x - n y)], {x, 0, 1}, {y, 0, 1}, Method -> "LocalAdaptive"]];
 ];
