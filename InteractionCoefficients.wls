@@ -62,6 +62,7 @@ Switch[$ScriptCommandLine[[2]],
 sigma = ToExpression[$ScriptCommandLine[[3]]];
 nmax = ToExpression[$ScriptCommandLine[[4]]];
 
+Print["interaction_coefficients"];
 For[n = 0, n <= 2*nmax, n++,
 	Print[NIntegrate[ funcPeriodic[x-y,sigma] Cos[2 Pi (n x - n y)], {x, 0, 1}, {y, 0, 1}, Method -> "LocalAdaptive"]];
 ];
