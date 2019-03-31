@@ -37,7 +37,7 @@ interactionEnergy1[u_,l_] := NIntegrate[ Conjugate[gauss[x,u]] Conjugate[gauss[y
 
 n = 100
 l = 0.1*1.6/Sqrt[2*Pi]
-g = -0.027627166011510197
+g = -0.0821470168102332
 
 (* energy in units of epsilon, length in units of trap length L *)
 
@@ -47,7 +47,7 @@ energy[u_] := (n kineticEnergy1[u] + n (n-1) g interactionEnergy1[u,l]);
 Print[umin];*)
 
 uLowerBound = 0.01
-u0 = 0.02;
+u0 = 0.03;
 ntest = 10;
 
 umin = u0;
