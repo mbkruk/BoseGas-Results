@@ -22,7 +22,7 @@ Assert[Assuming[{l>0},Integrate[dipol1[x,l],{x,-Infinity,Infinity}]]===1,"dipol1
 
 (* energy *)
 
-kineticFunc = (Conjugate[gauss[x,u]] (-D[ gauss[x,u], x, x]/2));
+kineticFunc = (Conjugate[gauss[x,u]] (-D[ gauss[x,u], x, x]/(4 Pi^2)));
 
 kineticEnergy1[nu_] := NIntegrate[ kineticFunc/. {x->nx,u->nu}, {nx, -Infinity, Infinity}, Method->"LocalAdaptive"];
 
@@ -32,22 +32,22 @@ interactionEnergy1[u_,l_] := NIntegrate[ Conjugate[gauss[x,u]] Conjugate[gauss[y
 	parameters:
 	n - particle count
 	l - interaction range
-	g - interaction strength
+	g - gamma
 *)
 
 n = 100
-l = 0.1
-g = -0.1
+l = 0.1*1.6/Sqrt[2*Pi]
+g = -0.0821470168102332
 
-(* energy in units of hbar^2/m *)
+(* energy in units of epsilon, length in units of trap length L *)
 
-energy[u_] := (n kineticEnergy1[u] + n (n-1)/2 g interactionEnergy1[u,l]);
+energy[u_] := (n kineticEnergy1[u] + n (n-1) g interactionEnergy1[u,l]);
 
 (*umin = NMinimize[{energy[u],u>=0},{u}];
 Print[umin];*)
 
 uLowerBound = 0.01
-u0 = 0.1;
+u0 = 0.03;
 ntest = 10;
 
 umin = u0;
