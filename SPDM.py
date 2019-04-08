@@ -21,9 +21,9 @@ with open(sys.argv[1],"r") as f:
 		re = []
 		im = []
 		for i in range(2*nmax+1):
-			re.append(float(data[5+(2*nmax+1)*aidx+i]))
+			re.append(float(data[5+(2*nmax+1)*2*aidx+i]))
 		for i in range(2*nmax+1):
-			im.append(float(data[5+(2*nmax+1)*(aidx+1)+i]))
+			im.append(float(data[5+(2*nmax+1)*(2*aidx+1)+i]))
 		alphas = np.vectorize(complex)(re,im)
 		rho = np.outer(np.conj(alphas),alphas)
 		l, v = np.linalg.eig(rho)
