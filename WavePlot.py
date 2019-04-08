@@ -15,15 +15,17 @@ with open(sys.argv[1],"r") as f:
 	N = int(data[0])
 	nmax = int(data[1])
 	gamma = float(data[2])
+	interactionType = data[3]
+	alphaCount = int(data[4])
 
-	re = []
-	im = []
-
-	for i in range(2*nmax+1):
-		re.append(float(data[4+i]))
-	for i in range(2*nmax+1):
-		im.append(float(data[5+2*nmax+i]))
-	alphas = np.vectorize(complex)(re,im)
+	for aidx in range(1):
+		re = []
+		im = []
+		for i in range(2*nmax+1):
+			re.append(float(data[5+(2*nmax+1)*2*aidx+i]))
+		for i in range(2*nmax+1):
+			im.append(float(data[5+(2*nmax+1)*(2*aidx+1)+i]))
+		alphas = np.vectorize(complex)(re,im)
 
 k = []
 for i in range(-nmax,nmax+1):
