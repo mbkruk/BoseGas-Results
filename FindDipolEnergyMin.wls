@@ -35,43 +35,62 @@ interactionEnergy1[u_,l_] := NIntegrate[ Conjugate[gauss[x,u]] Conjugate[gauss[y
 	g - gamma
 *)
 
-n = 100
-l = 0.1*1.6/Sqrt[2*Pi]
-g = -0.0821470168102332
+n = ToExpression[$ScriptCommandLine[[2]]];
+l = ToExpression[$ScriptCommandLine[[3]]]*1.6/Sqrt[2*Pi];
+g = ToExpression[$ScriptCommandLine[[4]]];
 
 (* energy in units of epsilon, length in units of trap length L *)
 
-energy[u_] := (n kineticEnergy1[u] + n (n-1) g interactionEnergy1[u,l]);
+energy[lnu_] := (n kineticEnergy1[Exp[lnu]] + n (n-1) g interactionEnergy1[Exp[lnu],l]);
 
-(*umin = NMinimize[{energy[u],u>=0},{u}];
-Print[umin];*)
+(* Netwon's method for finding energy'[u]==0 *)
 
-uLowerBound = 0.01
 u0 = 0.03;
-ntest = 10;
+h = 0.0001;
+niter = 20;
+eps = 0.0001
 
-umin = u0;
-emin = energy[umin];
+lnu = Log[u0];
+e = energy[lnu];
 
-searchRadius = Table[0.25*0.95^n,{n,30}];
+lnumin = lnu;
+emin = e;
 
-Module[{i,j,newmin},For[j=1,j<=Length[searchRadius],j++,
-	Print["round ",j," sigma=",searchRadius[[j]]];
-	utest = umin*Exp[RandomVariate[NormalDistribution[0,searchRadius[[j]]], ntest]];
-	utest = Table[Max[utest[[i]],uLowerBound],{i,Length[utest]}];
-	(*Print["u: ",utest];*)
-	etest = energy[utest];
-	(*Print["e: ",etest];*)
-	newmin = False;
-	For[i=1,i<=Length[utest],i++,
-		If[etest[[i]]<emin,
-			umin = utest[[i]];
-			emin = etest[[i]];
-			newmin = True;
-		];
-	];
-	If[newmin,
-		Print[umin," ",emin];
+Print[Exp[lnumin]," ",emin];
+
+Module[{i,e0,e1,e2,lnv,f},For[i=1,i<=niter,i++,
+	e0 = energy[lnu-h];
+	e1 = e;
+	e2 = energy[lnu+h];
+	(*
+		E' = (e2-e0)/h/2
+		E'' = (e0+e2-2*e1)/h^2
+		E'/E'' = h/2*(e2-e0)/(2*e1-e0-e2)
+	*)
+	m = (e0+e2-2*e1);
+	(*
+		lnv = lnu-h/2*(e2-e0)/m;
+		lnv = lnu-h/2*(e2-e0)/(Sign[m]*Abs[m])
+		go away from maxima(E''<0):
+		lnv = lnu-h/2*(e2-e0)/(Abs[m])
+		deal with near 0 m:
+	*)
+	lnv = lnu-h/2*(e2-e0)/(Sqrt[eps^2+m^2]);
+	f = energy[lnv];
+	If[f>emin,
+		h = h/2;
+		Print["retry ",h," ",f];
+	,
+		lnu = lnv;
+		e = f;
+		lnumin = lnu;
+		emin = e;
+		Print[Exp[lnumin]," ",emin];
 	];
 ]];
-Print[umin," ",emin];
+
+Print[energy[lnumin*0.95]];
+Print[energy[lnumin]];
+Print[energy[lnumin*1.05]];
+
+Print[Exp[lnumin]," ",emin];
