@@ -1,0 +1,49 @@
+pulapka harm 1D
+
+Statistical properties of one dimensional Bose gas
+Przemyslaw Bienias, Krzysztof Pawlowski, Mariusz Gajda, Kazimierz Rzazewski 
+https://arxiv.org/abs/1008.3277
+
+Statistical properties of one dimensional attractive Bose gas
+Przemyslaw Bienias, Krzysztof Pawlowski, Mariusz Gajda, Kazimierz Rzazewski 
+https://arxiv.org/abs/1103.4017
+
+eksperymentalne
+
+Observation of Atom Number Fluctuations in a Bose-Einstein Condensate
+M.A.Kristensen, M. B. Christensen, M.Gajdacz, M.Iglicki, K.Pawłowski, C.Klempt, J.F.Sherson, K.Rzążewski, A.J.Hilliard, J.J.Arlt 
+https://arxiv.org/abs/1812.03064
+
+Observations of density fluctuations in an elongated Bose gas: ideal gas and quasi-condensate regimes
+Jerome Esteve (LCFIO, LPN), Jean-Baptiste Trebbia (LCFIO), Thorsten Schumm (LCFIO), Alain Aspect (LCFIO), Christoph I. Westbrook (LCFIO), Isabelle Bouchoule (LCFIO)
+https://arxiv.org/abs/cond-mat/0510397
+
+pola klasyczne, cutoff
+
+Bose statistics and classical fields
+Emilia Witkowska, Mariusz Gajda, Kazimierz Rzążewski 
+https://arxiv.org/abs/0901.1769
+
+Monte Carlo method, classical fields and Bose statistics
+Emilia Witkowskaa, Mariusz Gajda, Kazimierz Rzazewski
+http://www.ifpan.edu.pl/ON-2/on26/pubs/oc_283_671.pdf
+
+mc
+
+Equation of State Calculations by Fast Computing Machines
+Nicholas Metropolis, Arianna W. Rosenbluth, Marshall N. Rosenbluth, Augusta H. Teller, and Edward Teller
+https://bayes.wustl.edu/Manual/EquationOfState.pdf
+
+
+
+
+
+
+
+
+
+
+
+
+
+
