@@ -56,10 +56,9 @@ with open(sys.argv[1],"r") as f:
 		bins.append(bin)
 
 bins = np.array(bins)
-locFlucMean = binCount*np.mean(bins,axis=0)
-locFlucStd = binCount*np.std(bins,axis=0)
+locFluc = np.std(bins,axis=0)/np.mean(bins,axis=0)
 
-plt.ylabel("density")
+plt.ylabel("$\\frac{\Delta N}{N}$")
 plt.xlabel("$\\frac{x}{L}$")
-plt.errorbar(np.linspace(-0.5,0.5,binCount,endpoint=False),locFlucMean,yerr=locFlucStd,ls=' ',marker='o')
+plt.plot(np.linspace(-0.5,0.5,binCount,endpoint=False),locFluc,ls=' ',marker='o')
 plt.show()
