@@ -45,12 +45,19 @@ Switch[$ScriptCommandLine[[2]],
 
 		Assert[Assuming[{l>0},Integrate[dipol1[x,l],{x,-Infinity,Infinity}]]===1,"dipol1 not normalized"];
 
+(* old version used to relate gaussian and dipole width
 		lpr[lsigarg_] := (1.6/Sqrt[2 Pi] lsigarg);
 
 		dipolPeriodic[x_, relsig_] := Module[{nlim, rell},
 			nlim = Max[Round[11 relsig], 1];
 			rell = lpr[relsig];
 			Sum[dipol1[x - n, rell], {n, -nlim, nlim}]
+		];
+*)
+
+		dipolPeriodic[x_, relsig_] := Module[{nlim},
+			nlim = Max[Round[18 relsig], 1];
+			Sum[dipol1[x - n, relsig], {n, -nlim, nlim}]
 		];
 
 		funcPeriodic = dipolPeriodic;
