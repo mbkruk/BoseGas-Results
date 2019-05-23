@@ -15,10 +15,9 @@ Assert[Assuming[{l > 0}, Integrate[Abs[gauss[x,l]]^2, {x, -Infinity, Infinity}]]
 
 dipolUnnormalized[u_] := (-2 u + Sqrt[2 Pi] (1 + u u) Exp[u^2/2] Erfc[u/Sqrt[2]]);
 dipolNorm = 2*Integrate[dipolUnnormalized[x],{x,0,Infinity}];
+dipolUnnormalizedMod[u_] := If[u<=38,(-2 u + Sqrt[2 Pi] (1 + u u) Exp[u^2/2] Erfc[u/Sqrt[2]]), 4/u^3];
 
-dipol1[u_,l_] := dipolUnnormalized[Abs[u/l]]/l/dipolNorm;
-
-Assert[Assuming[{l>0},Integrate[dipol1[x,l],{x,-Infinity,Infinity}]]===1,"dipol1 not normalized"];
+dipol1[u_,l_] := dipolUnnormalizedMod[Abs[u/l]]/l/dipolNorm;
 
 (* energy *)
 
@@ -36,7 +35,7 @@ interactionEnergy1[u_,l_] := NIntegrate[ Conjugate[gauss[x,u]] Conjugate[gauss[y
 *)
 
 n = ToExpression[$ScriptCommandLine[[2]]];
-l = ToExpression[$ScriptCommandLine[[3]]]*1.6/Sqrt[2*Pi];
+l = ToExpression[$ScriptCommandLine[[3]]];
 g = ToExpression[$ScriptCommandLine[[4]]];
 
 (* energy in units of epsilon, length in units of trap length L *)
