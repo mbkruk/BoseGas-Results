@@ -40,10 +40,9 @@ Switch[$ScriptCommandLine[[2]],
 	,"dipol",
 		dipolUnnormalized[u_] := (-2 u + Sqrt[2 Pi] (1 + u u) Exp[u^2/2] Erfc[u/Sqrt[2]]);
 		dipolNorm = 2*Integrate[dipolUnnormalized[x],{x,0,Infinity}];
+		dipolUnnormalizedMod[u_] := If[u<=38,(-2 u + Sqrt[2 Pi] (1 + u u) Exp[u^2/2] Erfc[u/Sqrt[2]]), 4/u^3];
 
-		dipol1[u_,l_] := dipolUnnormalized[Abs[u/l]]/l/dipolNorm;
-
-		Assert[Assuming[{l>0},Integrate[dipol1[x,l],{x,-Infinity,Infinity}]]===1,"dipol1 not normalized"];
+		dipol1[u_,l_] := dipolUnnormalizedMod[Abs[u/l]]/l/dipolNorm;
 
 (* old version used to relate gaussian and dipole width
 		lpr[lsigarg_] := (1.6/Sqrt[2 Pi] lsigarg);
@@ -71,5 +70,5 @@ nmax = ToExpression[$ScriptCommandLine[[4]]];
 
 Print["interaction_coefficients"];
 For[n = 0, n <= 2*nmax, n++,
-	Print[NIntegrate[ funcPeriodic[x-y,sigma] Cos[2 Pi (n x - n y)], {x, 0, 1}, {y, 0, 1}, Method -> "LocalAdaptive"]];
+	Print[NIntegrate[ funcPeriodic[x-y,sigma] Cos[2 Pi (n x - n y)], {x,0,1}, {y,0,1}, Method-> "CartesianRule"]];
 ];
