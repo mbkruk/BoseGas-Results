@@ -40,7 +40,7 @@ Switch[$ScriptCommandLine[[2]],
 	,"dipol",
 		dipolUnnormalized[u_] := (-2 u + Sqrt[2 Pi] (1 + u u) Exp[u^2/2] Erfc[u/Sqrt[2]]);
 		dipolNorm = 2*Integrate[dipolUnnormalized[x],{x,0,Infinity}];
-		dipolUnnormalizedMod[u_] := If[u<=38,(-2 u + Sqrt[2 Pi] (1 + u u) Exp[u^2/2] Erfc[u/Sqrt[2]]), 4/u^3];
+		dipolUnnormalizedMod[u_] := If[u<=38,(-2 u + Sqrt[2 Pi] (1 + u u) Exp[u^2/2] Erfc[u/Sqrt[2]]), ((4 - 24/u^2 + 180/u^4)/u^3)];
 
 		dipol1[u_,l_] := dipolUnnormalizedMod[Abs[u/l]]/l/dipolNorm;
 
