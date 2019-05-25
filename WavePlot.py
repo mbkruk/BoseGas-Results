@@ -18,6 +18,7 @@ with open(sys.argv[1],"r") as f:
 	interactionType = data[3]
 	alphaCount = int(data[4])
 
+if interactionType=="contact":
 	for aidx in range(1):
 		re = []
 		im = []
@@ -26,6 +27,16 @@ with open(sys.argv[1],"r") as f:
 		for i in range(2*nmax+1):
 			im.append(float(data[5+(2*nmax+1)*(2*aidx+1)+i]))
 		alphas = np.vectorize(complex)(re,im)
+else:
+	for aidx in range(1):
+		re = []
+		im = []
+		for i in range(2*nmax+1):
+			re.append(float(data[5+2*nmax+1+(2*nmax+1)*2*aidx+i]))
+		for i in range(2*nmax+1):
+			im.append(float(data[5+2*nmax+1+(2*nmax+1)*(2*aidx+1)+i]))
+		alphas = np.vectorize(complex)(re,im)
+
 
 k = []
 for i in range(-nmax,nmax+1):
