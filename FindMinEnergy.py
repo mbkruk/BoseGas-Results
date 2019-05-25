@@ -11,7 +11,7 @@ import subprocess
 import random
 import numpy as np
 
-options = []
+options = ["-I","intcoeff/dipol-0.060.in"]
 
 def findMinConstGamma(N,gamma):
 	extra = 0
@@ -41,17 +41,32 @@ def findRangeConstExtraModes(N,extraModePairs):
 	data = {-1:[],0:[],1:[]}
 	def step(gamma):
 		result = subprocess.run(["bgmc","-N",str(N),"-g",str(gamma),"-n","1","-e",str(extraModePairs-1),*options],stdout=subprocess.PIPE)
-		stats = result.stdout.decode("utf-8").split('\n')[-2].split()
+		data = result.stdout.decode("utf-8").split('\n')
+		stats = None
+		for line in data:
+			line = line.split()
+			if line and line[0]=="total":
+				stats = line
 		E0 = float(stats[5])
 		uE0 = float(stats[6])
 
 		result = subprocess.run(["bgmc","-N",str(N),"-g",str(gamma),"-n","1","-e",str(extraModePairs),*options],stdout=subprocess.PIPE)
-		stats = result.stdout.decode("utf-8").split('\n')[-2].split()
+		data = result.stdout.decode("utf-8").split('\n')
+		stats = None
+		for line in data:
+			line = line.split()
+			if line and line[0]=="total":
+				stats = line
 		E1 = float(stats[5])
 		uE1 = float(stats[6])
 
 		result = subprocess.run(["bgmc","-N",str(N),"-g",str(gamma),"-n","1","-e",str(extraModePairs+1),*options],stdout=subprocess.PIPE)
-		stats = result.stdout.decode("utf-8").split('\n')[-2].split()
+		data = result.stdout.decode("utf-8").split('\n')
+		stats = None
+		for line in data:
+			line = line.split()
+			if line and line[0]=="total":
+				stats = line
 		E2 = float(stats[5])
 		uE2 = float(stats[6])
 
