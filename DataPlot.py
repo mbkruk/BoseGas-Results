@@ -36,7 +36,11 @@ evY = []
 evF = []
 
 for n in range(1,25+1):
+<<<<<<< HEAD
+	with open("repulsive/0.5"+sys.argv[1]+"/contact/mc/n-{}.out".format(n),"r") as f:
+=======
 	with open("repulsive/0.5"+sys.argv[1]+"/mc/n-{}.out".format(n),"r") as f:
+>>>>>>> 899f9c0dcda2eae50ead07a710166d02d91ca40f
 		data = f.read().split('\n')
 		if len(data[-1])==0:
 			data = data[:-1]
@@ -45,7 +49,11 @@ for n in range(1,25+1):
 		mcY.append(float(data[2]))
 		mcU.append(float(data[3]))
 		mcF.append(float(data[4]))
+<<<<<<< HEAD
+	with open("repulsive/0.5"+sys.argv[1]+"/contact/ev/results/n-{}.out".format(n),"r") as f:
+=======
 	with open("repulsive/0.5"+sys.argv[1]+"/ev/results/n-{}.out".format(n),"r") as f:
+>>>>>>> 899f9c0dcda2eae50ead07a710166d02d91ca40f
 		data = f.read().split()
 		evX.append(n)
 		evY.append(float(data[-2]))
@@ -87,8 +95,13 @@ if sys.argv[2]=='f':
 	plt.scatter(mcX,mcF,marker='x',label='MC dd 0.025',c="red")
 	plt.scatter(evX,evF,marker='.',label='EV dd 0.025', c="indianred")
 else:
+<<<<<<< HEAD
+	plt.errorbar(mcX,mcY,yerr=mcU,ls=' ',marker='x',label='MC dd 0.025',c="red")
+	plt.errorbar(evX,evY,marker='.',ls=' ',label='MC dd 0.025', c="indianred")
+=======
 	plt.errorbar(mcX,mcY,yerr=mcU,ls=' ',marker='x',label='dMC',c="red")
 	plt.errorbar(evX,evY,marker='.',ls=' ',label='dEV', c="indianred")
+>>>>>>> 899f9c0dcda2eae50ead07a710166d02d91ca40f
 
 plt.xlabel('$N_{max}$')
 if sys.argv[2]=='f':
