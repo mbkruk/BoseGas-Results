@@ -20,8 +20,9 @@ with open(sys.argv[1],"r") as f:
 	gamma = float(data[2])
 	interactionType = data[3]
 	alphaCount = int(data[4])
+	print(alphaCount,flush=True)
 
-	resol = 64
+	resol = 32
 	x = np.linspace(-0.5,0.5,resol)
 
 	k = []
@@ -29,10 +30,13 @@ with open(sys.argv[1],"r") as f:
 		k.append(i)
 	k = np.array(k)
 	
-	values = np.zeros_like(x)
-	values = np.outer(values,values)
+	#values = np.zeros_like(x)
+	#values = np.outer(values,values)
+	values = []
 
 	for aidx in range(alphaCount):
+		if (aidx%10)!=0:
+			continue
 		re = []
 		im = []
 		for i in range(2*nmax+1):
@@ -41,13 +45,18 @@ with open(sys.argv[1],"r") as f:
 			im.append(float(data[5+(2*nmax+1)*(2*aidx+1)+i]))
 		alphas = np.vectorize(complex)(re,im)
 
-		values += np.abs(np.outer(psi(x,k,alphas),psi(x,k,alphas)))
+		values.append(np.abs(np.outer(np.conj(psi(x,k,alphas)),psi(x,k,alphas))))
 
-values = values/alphaCount
+#cnt = len(values)
+values = np.array(values)
 
 X, Y = np.meshgrid(x,x)
 
+m = np.mean(values,axis=0)
+s = np.std(values,axis=0)
+
 fig = plt.figure()
 ax = fig.gca(projection='3d')
-ax.plot_surface(X,Y,values)
+ax.plot_surface(X,Y,m)
+ax.plot_surface(X,Y,s)
 plt.show()
