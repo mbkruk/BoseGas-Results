@@ -3,6 +3,7 @@
 import sys
 import numpy as np
 from matplotlib import pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 from scipy import optimize as spopt
 
 if len(sys.argv)!=2:
@@ -20,17 +21,16 @@ with open(sys.argv[1],"r") as f:
 	interactionType = data[3]
 	alphaCount = int(data[4])
 
-	resol =100
+	resol = 64
 	x = np.linspace(-0.5,0.5,resol)
 
 	k = []
 	for i in range(-nmax,nmax+1):
 		k.append(i)
 	k = np.array(k)
-
-	values=[]
-	for i in range(resol):
-		values.append(0)
+	
+	values = np.zeros_like(x)
+	values = np.outer(values,values)
 
 	for aidx in range(alphaCount):
 		re = []
@@ -41,15 +41,13 @@ with open(sys.argv[1],"r") as f:
 			im.append(float(data[5+(2*nmax+1)*(2*aidx+1)+i]))
 		alphas = np.vectorize(complex)(re,im)
 
-		y = np.abs(psi(x,k,alphas))**2
+		values += np.abs(np.outer(psi(x,k,alphas),psi(x,k,alphas)))
 
-		for i in range(resol):
-			values[i]+=np.abs(psi(0,k,alphas)*psi(x[i],k,alphas))
+values = values/alphaCount
 
-	values=np.array(values)
-	values=values/alphaCount
-for i in range(resol):
-	print(x[i],values[i])
+X, Y = np.meshgrid(x,x)
 
-plt.plot(x,values)
+fig = plt.figure()
+ax = fig.gca(projection='3d')
+ax.plot_surface(X,Y,values)
 plt.show()
