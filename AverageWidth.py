@@ -12,7 +12,7 @@ def psi(x,k,alphas):
 	return np.sum(alphas*np.exp(np.outer(2j*np.pi*x,k)),axis=1)
 
 def periodicGauss2(x,mu,sigma):
-	M = 2
+	M = 3
 	y = np.zeros_like(x)
 	for n in range(-M,M+1):
 		y += np.exp(-0.5*((x-mu-n)/sigma)**2)
@@ -32,7 +32,6 @@ with open(sys.argv[1],"r") as f:
 	for i in range(-nmax,nmax+1):
 		k.append(i)
 	k = np.array(k)
-
 	sigma=[]
 
 	for aidx in range(alphaCount):
@@ -51,9 +50,10 @@ with open(sys.argv[1],"r") as f:
 
 		popt, pcov = spopt.curve_fit(periodicGauss2,x,y,p0=(estMu,estSigma))
 
-		if np.sqrt(pcov[1,1])/popt[1] < 0.01 :
+		if np.sqrt(pcov[1,1])/popt[1] < 0.001 :
 			sigma.append(popt[1])
 	
 sigmas= np.array(sigma)
 
-print("sigma =",np.mean(sigmas),"+/-",np.std(sigmas,axis=0),flush=True)
+print(np.mean(sigmas),flush=True)
+print(np.std(sigmas,axis=0),flush=True)
