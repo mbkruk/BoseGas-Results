@@ -4,50 +4,30 @@ import sys
 import numpy as np
 from matplotlib import pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
-from scipy import optimize as spopt
+import BoseGas as bg
 
 if len(sys.argv)!=2:
 	exit(1)
 
-def psi(x,k,alphas):
-	return np.sum(alphas*np.exp(np.outer(2j*np.pi*x,k)),axis=1)
+data = bg.MCData(sys.argv[1])
 
+resol = 32
+x = np.linspace(-0.5,0.5,resol)
 
-with open(sys.argv[1],"r") as f:
-	data = f.read().split()
-	N = int(data[0])
-	nmax = int(data[1])
-	gamma = float(data[2])
-	interactionType = data[3]
-	alphaCount = int(data[4])
-	print(alphaCount,flush=True)
+k = []
+for i in range(-data.nmax,data.nmax+1):
+	k.append(i)
+k = np.array(k)
 
-	resol = 32
-	x = np.linspace(-0.5,0.5,resol)
+values = []
 
-	k = []
-	for i in range(-nmax,nmax+1):
-		k.append(i)
-	k = np.array(k)
-	
-	#values = np.zeros_like(x)
-	#values = np.outer(values,values)
-	values = []
+status = bg.Status()
 
-	for aidx in range(alphaCount):
-		if (aidx%10)!=0:
-			continue
-		re = []
-		im = []
-		for i in range(2*nmax+1):
-			re.append(float(data[5+(2*nmax+1)*2*aidx+i]))
-		for i in range(2*nmax+1):
-			im.append(float(data[5+(2*nmax+1)*(2*aidx+1)+i]))
-		alphas = np.vectorize(complex)(re,im)
+for aidx in range(data.alphaCount):
+	status.update(aidx,data.alphaCount)
+	alphas = data.loadAlphas()
+	values.append(np.abs(np.outer(np.conj(bg.psi(x,k,alphas)),bg.psi(x,k,alphas))))
 
-		values.append(np.abs(np.outer(np.conj(psi(x,k,alphas)),psi(x,k,alphas))))
-
-#cnt = len(values)
 values = np.array(values)
 
 X, Y = np.meshgrid(x,x)

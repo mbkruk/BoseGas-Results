@@ -2,58 +2,54 @@
 
 import sys
 import numpy as np
-from matplotlib import pyplot as plt
+#from matplotlib import pyplot as plt
 from scipy import optimize as spopt
+import BoseGas as bg
 
 if len(sys.argv)!=2:
+	print("usage: AverageWidth.py <MC output data file>")
+	print("Compute average and standard deviation of wave packet profiles.")
 	exit(1)
 
-def psi(x,k,alphas):
-	return np.sum(alphas*np.exp(np.outer(2j*np.pi*x,k)),axis=1)
+data = bg.MCData(sys.argv[1])
 
-def periodicGauss2(x,mu,sigma):
-	M = 3
-	y = np.zeros_like(x)
-	for n in range(-M,M+1):
-		y += np.exp(-0.5*((x-mu-n)/sigma)**2)
-	y /= np.sqrt(np.sqrt(np.pi)*sigma)
-	return N*(y**2)
+xx = np.linspace(-0.5,0.5,512)
+k = []
+for i in range(-data.nmax,data.nmax+1):
+	k.append(i)
+k = np.array(k)
 
-with open(sys.argv[1],"r") as f:
-	data = f.read().split()
-	N = int(data[0])
-	nmax = int(data[1])
-	gamma = float(data[2])
-	interactionType = data[3]
-	alphaCount = int(data[4])
+def pg2(x,mu,sigma):
+	return bg.periodicGauss2(x,mu,sigma,data.N)
 
-	x = np.linspace(-0.5,0.5,1000)
-	k = []
-	for i in range(-nmax,nmax+1):
-		k.append(i)
-	k = np.array(k)
-	sigma=[]
+def findSigma(alphas):
+	y = np.abs(bg.psi(xx,k,alphas))**2
+	estMu = xx[np.argmax(y)]
+	x = xx+estMu
+	y = np.abs(bg.psi(x,k,alphas))**2
+	estSigma = data.N/np.sqrt(np.pi)/np.max(y)
+	popt, pcov = spopt.curve_fit(pg2,x,y,p0=(estMu,estSigma))
+	x = xx+popt[0]
+	y = np.abs(bg.psi(x,k,alphas))**2
+	popt, pcov = spopt.curve_fit(pg2,x,y,p0=(popt[0],popt[1]))
+	return popt[1], np.sqrt(pcov[1,1])
 
-	for aidx in range(alphaCount):
-		re = []
-		im = []
-		for i in range(2*nmax+1):
-			re.append(float(data[5+(2*nmax+1)*2*aidx+i]))
-		for i in range(2*nmax+1):
-			im.append(float(data[5+(2*nmax+1)*(2*aidx+1)+i]))
-		alphas = np.vectorize(complex)(re,im)
+sigmas = []
 
-		y = np.abs(psi(x,k,alphas))**2
+status = bg.Status()
 
-		estSigma = N/np.sqrt(np.pi)/np.max(y)
-		estMu = x[np.argmax(y)]
-
-		popt, pcov = spopt.curve_fit(periodicGauss2,x,y,p0=(estMu,estSigma))
-
-		if np.sqrt(pcov[1,1])/popt[1] < 0.001 :
-			sigma.append(popt[1])
+for aidx in range(data.alphaCount):
+	status.update(aidx,data.alphaCount)
 	
-sigmas= np.array(sigma)
+	alphas = data.loadAlphas()
+	m, u = findSigma(alphas)
 
+	if u/m < 0.001:
+		sigmas.append(m)
+
+sigmas = np.array(sigmas)
+
+print("sample count:",data.alphaCount)
+print("accepted:",len(sigmas),len(sigmas)/data.alphaCount)
 print(np.mean(sigmas),flush=True)
-print(np.std(sigmas,axis=0),flush=True)
+print(np.std(sigmas),flush=True)
