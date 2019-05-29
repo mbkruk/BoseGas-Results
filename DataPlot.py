@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+#Usage: DataPlot.py <a/b> <x/f>
 import sys
 import numpy as np
 from matplotlib import pyplot as plt

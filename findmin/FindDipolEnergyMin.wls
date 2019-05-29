@@ -32,6 +32,7 @@ interactionEnergy1[u_,l_] := NIntegrate[ Conjugate[gauss[x,u]] Conjugate[gauss[y
 	n - particle count
 	l - interaction range
 	g - gamma
+	u0 - initial width
 *)
 
 n = ToExpression[$ScriptCommandLine[[2]]];
@@ -44,9 +45,9 @@ energy[lnu_] := (n kineticEnergy1[Exp[lnu]] + n (n-1) g interactionEnergy1[Exp[l
 
 (* Netwon's method for finding energy'[u]==0 *)
 
-u0 = 0.03;
-h = 0.0001;
-niter = 20;
+u0 = ToExpression[$ScriptCommandLine[[5]]];
+h = 0.0005;
+niter = 50;
 eps = 0.0001
 
 lnu = Log[u0];
