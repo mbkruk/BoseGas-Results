@@ -44,7 +44,7 @@ for aidx in range(data.alphaCount):
 	alphas = data.loadAlphas()
 	m, u = findSigma(alphas)
 
-	if u/m < 0.001:
+	if u/m < 0.01:
 		sigmas.append(m)
 
 sigmas = np.array(sigmas)
