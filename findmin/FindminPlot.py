@@ -41,11 +41,11 @@ if sys.argv[1]=="contact":
 	x = np.linspace(gammas[0]-delta,gammas[11]+delta,1000)
 	if sys.argv[2]=="width":
 		y = wid(x)
-		plt.errorbar(gammas,mcsig,yerr=mcsigstd,ls=' ',marker='.',label='MC simulations',c="red")
+		plt.errorbar(gammas,mcsig,yerr=mcsigstd,ls=' ',marker='v',label='MC simulations',c="red")
 		plt.ylabel('Gauss width $\sigma$')
 	elif sys.argv[2]=="energy":
 		y=ene(x)
-		plt.errorbar(gammas,mcene,yerr=mcenestd,ls=' ',marker='.',label='MC simulations',c="red")
+		plt.errorbar(gammas,mcene,yerr=mcenestd,ls=' ',marker='v',label='MC simulations',c="red")
 		plt.ylabel('Energy $|E_{min}|$')
 	plt.plot(x,y,c="blue", label='Gauss ansatz')
 else:
@@ -56,13 +56,13 @@ else:
 			data = f.read().split('\n')
 			data = data[-2].split()
 			wolfsig.append(float(data[0]))
-			wolfene.append(float(data[1]))
+			wolfene.append((-1.0)*float(data[1]))
 	if sys.argv[2]=="width":
-		plt.errorbar(gammas,mcsig,yerr=mcsigstd,ls=' ',marker='x',label='MC simulations',c="red")
-		plt.errorbar(gammas,wolfsig,ls=' ',marker='x',label='variational',c="blue")
+		plt.errorbar(gammas,mcsig,yerr=mcsigstd,ls=' ',marker='v',label='MC simulations',c="red")
+		plt.errorbar(gammas,wolfsig,ls=' ',marker='x',label='Gauss ansatz',c="blue")
 		plt.ylabel('Gauss width $\sigma$')
 	elif sys.argv[2]=="energy":
-		plt.errorbar(gammas,mcene,yerr=mcsigstd,ls=' ',marker='x',label='MC simulations',c="red")
+		plt.errorbar(gammas,mcene,yerr=mcsigstd,ls=' ',marker='v',label='MC simulations',c="red")
 		plt.errorbar(gammas,wolfene,ls=' ',marker='x',label='Gauss ansatz',c="blue")
 		plt.ylabel('Energy $|E_{min}|$')
 
