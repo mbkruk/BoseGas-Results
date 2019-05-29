@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-#Usage: DataPlot.py <a/b> <x/f>
+
 import sys
 import numpy as np
 from matplotlib import pyplot as plt
@@ -19,6 +19,8 @@ for n in range(1,25+1):
 		mcY.append(float(data[2]))
 		mcU.append(float(data[3]))
 		mcF.append(float(data[4]))
+
+mcX = [n*n/0.58 for n in mcX]
 
 if sys.argv[2]=='f':
 	plt.scatter(mcX,mcF,marker='v',label='MC ideal',c="black",s=10)
@@ -49,6 +51,9 @@ for n in range(1,25+1):
 		evX.append(n)
 		evY.append(float(data[-2]))
 		evF.append(float(data[-1]))
+
+mcX = [n*n/0.58 for n in mcX]
+evX = [n*n/0.58 for n in evX]
 
 if sys.argv[2]=='f':
 	plt.scatter(mcX,mcF,marker='x',label='MC',c="blue")
@@ -82,6 +87,11 @@ for n in range(1,25+1):
 		evY.append(float(data[-2]))
 		evF.append(float(data[-1]))
 
+mcX = [n*n/0.58 for n in mcX]
+evX = [n*n/0.58 for n in evX]
+
+plt.xscale("log")
+
 if sys.argv[2]=='f':
 	plt.scatter(mcX,mcF,marker='x',label='MC dd 0.025',c="red")
 	plt.scatter(evX,evF,marker='.',label='EV dd 0.025', c="indianred")
@@ -89,7 +99,7 @@ else:
 	plt.errorbar(mcX,mcY,yerr=mcU,ls=' ',marker='x',label='MC dd 0.025',c="red")
 	plt.errorbar(evX,evY,marker='.',ls=' ',label='EV dd 0.025', c="indianred")
 
-plt.xlabel('$N_{max}$')
+plt.xlabel('$k_B T$')
 if sys.argv[2]=='f':
 	plt.ylabel("$\\sqrt{Var[n_0]}$")
 else:
