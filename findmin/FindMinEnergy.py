@@ -11,7 +11,10 @@ import subprocess
 import random
 import numpy as np
 
-options = ["-I","intcoeff/dipol-0.060.in"]
+if len(sys.argv)==4:
+    options = ["-I",sys.argv[3]]
+else:
+    options = []
 
 def findMinConstGamma(N,gamma):
 	extra = 0
@@ -153,7 +156,7 @@ def findRangeConstExtraModes(N,extraModePairs):
 
 	return (np.min(data[0]),np.max(data[0]))
 
-if len(sys.argv)!=3:
+if len(sys.argv)!=3 and len(sys.argv)!=4:
 	print(help)
 	exit(1)
 
