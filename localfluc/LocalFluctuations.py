@@ -6,7 +6,7 @@ from matplotlib import pyplot as plt
 from scipy import optimize as spopt
 import BoseGas as bg
 
-binCount = 81
+binCount = 101
 bins = []
 
 if len(sys.argv)!=2:
@@ -49,6 +49,5 @@ locFluc = np.std(bins,axis=0)/np.mean(bins,axis=0)
 
 plt.ylabel("$\\frac{\Delta N}{N}$")
 plt.xlabel("$\\frac{x}{L}$")
-plt.plot(np.linspace(-0.5,0.5,binCount,endpoint=False),locFluc,ls=' ',marker='o')
+plt.plot(np.linspace(-0.5,0.5,binCount,endpoint=False),locFluc,ls=' ',marker='.')
 plt.savefig(sys.argv[1].replace(".txt",".svg"))
-plt.show()
