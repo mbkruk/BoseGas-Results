@@ -7,7 +7,7 @@ from matplotlib import pyplot as plt
 
 resolution = 1024
 fname = sys.argv[1]
-output = sys.argv[2]
+output = fname.replace(".txt",".npy")
 
 data = bg.MCData(fname)
 
