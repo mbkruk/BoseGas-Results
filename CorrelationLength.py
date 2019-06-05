@@ -26,17 +26,17 @@ status = bg.Status()
 for aidx in range(data.alphaCount):
 	status.update(aidx,data.alphaCount)
 	alphas = data.loadAlphas()
-	values.append(np.abs(np.outer(np.conj(bg.psi(x,k,alphas)),bg.psi(x,k,alphas))))
+	values.append(np.outer(np.conj(bg.psi(x,k,alphas)),bg.psi(x,k,alphas)))
 
 values = np.array(values)
 
 X, Y = np.meshgrid(x,x)
 
-m = np.mean(values,axis=0)
-s = np.std(values,axis=0)
+m = np.abs(np.mean(values,axis=0))
+#s = np.abs(np.std(values,axis=0))
 
 fig = plt.figure()
 ax = fig.gca(projection='3d')
 ax.plot_surface(X,Y,m)
-ax.plot_surface(X,Y,s)
+#ax.plot_surface(X,Y,s)
 plt.show()
