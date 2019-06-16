@@ -15,7 +15,7 @@ if len(sys.argv)!=2:
 
 data = bg.MCData(sys.argv[1])
 
-resol = 101
+resol = 401
 x = np.linspace(-0.5,0.5,resol)
 
 k = []
@@ -43,8 +43,8 @@ plt.show()
 
 tab1 = values[: list(x).index(0)+1]
 tab2 = values[list(x).index(0):]
-hmax1 = (max(tab1) - min(tab1))/2.0 + min(tab1)
-hmax2 = (max(tab2) - min(tab2))/2.0 + min(tab2)
+hmax1 = max(tab1)/2.0
+hmax2 = max(tab2)/2.0
 
 print(x[FindNearest(tab1,hmax1)])
 print(x[list(x).index(0)+FindNearest(tab2,hmax2)])
