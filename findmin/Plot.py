@@ -58,14 +58,17 @@ else:
 			wolfsig.append(float(data[0]))
 			wolfene.append((-1.0)*float(data[1]))
 	if sys.argv[2]=="width":
+		plt.errorbar(gammas,wolfsig,ls=' ',marker='x',label='Gauss ansatz',c="blue",markersize='8')
 		plt.errorbar(gammas,mcsig,yerr=mcsigstd,ls=' ',marker='v',label='MC simulations',c="red")
-		plt.errorbar(gammas,wolfsig,ls=' ',marker='x',label='Gauss ansatz',c="blue")
 		plt.ylabel('Gauss width $\sigma$')
 	elif sys.argv[2]=="energy":
+		plt.errorbar(gammas,wolfene,ls=' ',marker='x',label='Gauss ansatz',c="blue",markersize='8')
 		plt.errorbar(gammas,mcene,yerr=mcsigstd,ls=' ',marker='v',label='MC simulations',c="red")
-		plt.errorbar(gammas,wolfene,ls=' ',marker='x',label='Gauss ansatz',c="blue")
 		plt.ylabel('Energy $|E_{min}|$')
 
+
 plt.xlabel('Interaction strength $|g|$')
+plt.xticks(fontsize=13)
+plt.yticks(fontsize=13)
 plt.legend()
 plt.show()
