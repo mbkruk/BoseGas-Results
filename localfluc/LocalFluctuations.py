@@ -2,7 +2,6 @@
 
 import sys
 import numpy as np
-from matplotlib import pyplot as plt
 from scipy import optimize as spopt
 import BoseGas as bg
 
@@ -10,9 +9,13 @@ binCount = 101
 bins = []
 
 if len(sys.argv)!=2:
+	print("usage: LocalFluctuations.py <data>")
 	exit(1)
 
-data = bg.MCData(sys.argv[1])
+input = sys.argv[1]
+output = "plt/"+input
+
+data = bg.MCData(input)
 
 binSize = 4*(4*data.nmax)
 x = np.linspace(-0.5,0.5,binSize*binCount,endpoint=False)
@@ -47,7 +50,6 @@ for aidx in range(data.alphaCount):
 bins = np.array(bins)
 locFluc = np.std(bins,axis=0)/np.mean(bins,axis=0)
 
-plt.ylabel("$\\frac{\Delta N}{N}$")
-plt.xlabel("$\\frac{x}{L}$")
-plt.plot(np.linspace(-0.5,0.5,binCount,endpoint=False),locFluc,ls=' ',marker='.')
-plt.savefig(sys.argv[1].replace(".txt",".svg"))
+print(output,flush=True)
+
+np.save(output,locFluc)
