@@ -9,7 +9,9 @@ mcF = []
 mcU = []
 mcY = []
 
-for n in range(1,25+1):
+size=8
+
+for n in range(1,22+1):
 	with open("idealgas/mc/n-{}.out".format(n),"r") as f:
 		data = f.read().split('\n')
 		if len(data[-1])==0:
@@ -23,9 +25,9 @@ for n in range(1,25+1):
 mcX = [n*n/0.58 for n in mcX]
 
 if sys.argv[2]=='f':
-	plt.scatter(mcX,mcF,marker='v',label='MC ideal',c="black",s=10)
+	plt.errorbar(mcX,mcF,marker='v',ls=' ',label='MC ideal',c="black",markersize=size)
 else:
-	plt.errorbar(mcX,mcY,yerr=mcU,ls=' ',marker='v',label='MC ideal',c="black")
+	plt.errorbar(mcX,mcY,yerr=mcU,ls=' ',marker='v',label='MC ideal',c="black",markersize=size)
 
 mcX = []
 mcU = []
@@ -36,7 +38,7 @@ evX = []
 evY = []
 evF = []
 
-for n in range(1,25+1):
+for n in range(1,22+1):
 	with open("repulsive/0.5"+sys.argv[1]+"/contact/mc/n-{}.out".format(n),"r") as f:
 		data = f.read().split('\n')
 		if len(data[-1])==0:
@@ -56,11 +58,11 @@ mcX = [n*n/0.58 for n in mcX]
 evX = [n*n/0.58 for n in evX]
 
 if sys.argv[2]=='f':
-	plt.scatter(mcX,mcF,marker='x',label='MC',c="blue")
-	plt.scatter(evX,evF,marker='.',label='EV',c="lightgreen")
+	plt.errorbar(mcX,mcF,marker='x',ls=' ',label='MC',c="blue",markersize=size)
+	plt.errorbar(evX,evF,marker='.',ls=' ',label='EV',c="mediumturquoise",markersize=1.2*size)
 else:
-	plt.errorbar(mcX,mcY,yerr=mcU,ls=' ',marker='x',label='MC',c="blue")
-	plt.errorbar(evX,evY,marker='.',ls=' ',label='EV',c="lightgreen")
+	plt.errorbar(mcX,mcY,yerr=mcU,ls=' ',marker='x',label='MC',c="blue",markersize=size)
+	plt.errorbar(evX,evY,marker='.',ls=' ',label='EV',c="mediumturquoise",markersize=1.2*size)
 
 mcX = []
 mcU = []
@@ -71,7 +73,7 @@ evX = []
 evY = []
 evF = []
 
-for n in range(1,25+1):
+for n in range(1,22+1):
 	with open("repulsive/0.5"+sys.argv[1]+"/0.025/mc/n-{}.out".format(n),"r") as f:
 		data = f.read().split('\n')
 		if len(data[-1])==0:
@@ -93,17 +95,21 @@ evX = [n*n/0.58 for n in evX]
 plt.xscale("log")
 
 if sys.argv[2]=='f':
-	plt.scatter(mcX,mcF,marker='x',label='MC dd 0.025',c="red")
-	plt.scatter(evX,evF,marker='.',label='EV dd 0.025', c="indianred")
+	plt.errorbar(mcX,mcF,marker='x',ls=' ',label='MC dd $l_{\perp}$=0.025',c="red",markersize=size)
+	plt.errorbar(evX,evF,marker='.',ls=' ',label='EV dd $l_{\perp}$=0.025', c="indianred",markersize=1.2*size)
 else:
-	plt.errorbar(mcX,mcY,yerr=mcU,ls=' ',marker='x',label='MC dd 0.025',c="red")
-	plt.errorbar(evX,evY,marker='.',ls=' ',label='EV dd 0.025', c="indianred")
+	plt.errorbar(mcX,mcY,yerr=mcU,ls=' ',marker='x',label='MC dd $l_{\perp}$=0.025',c="red",markersize=size)
+	plt.errorbar(evX,evY,marker='.',ls=' ',label='EV dd $l_{\perp}$=0.025', c="indianred",markersize=1.2*size)
 
-plt.xlabel('$k_B T$')
+plt.xlabel('$k_B T/\epsilon$',fontsize=16)
 if sys.argv[2]=='f':
-	plt.ylabel("$\\sqrt{Var[n_0]}$")
+	plt.ylabel("$\\sqrt{Var[n_0]}$",fontsize=16)
+	plt.legend(fontsize=11,loc='upper right')
 else:
-	plt.ylabel('$<n_0>$')
-plt.legend()
+	plt.ylabel('$<n_0>$',fontsize=16)
+	plt.legend(fontsize=12,loc='lower left')
 
+plt.tight_layout()
+plt.xticks(fontsize=13)
+plt.yticks(fontsize=13)
 plt.show()
