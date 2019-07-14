@@ -64,7 +64,7 @@ class Status:
 			print(msg,flush=True)
 			self.lastMessage = msg
 
-	def __init__(self):
+	def __init__(self,updateFrequency=1000):
 		self.lastMessage = ""
-		self.updateFrequency = 1000
+		self.updateFrequency = updateFrequency
 		self.t = time.time()

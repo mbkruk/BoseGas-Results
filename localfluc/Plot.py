@@ -14,7 +14,7 @@ if len(sys.argv)!=2:
 	exit(1)
 
 input = sys.argv[1]
-output = sys.argv[1].replace(".txt.npy",".pdf").replace("plt/data/","plt/")
+output = sys.argv[1].replace(".txt.npy",".pdf").replace("plt/data/","plt/").replace("plt/data2/","plt/mc-")
 
 locFluc = np.load(input)
 
