@@ -32,10 +32,6 @@ for i in range(-data.nmax,data.nmax+1):
 	k.append(i)
 k = np.array(k)
 
-def calcMC(yy):
-	dy = 0.5*dx*(yy+np.roll(yy,1))*x*x
-	return np.sum(dy)
-
 status = bg.Status(10)
 for aidx in range(data.alphaCount//10):
 	status.update(aidx,data.alphaCount//10)
@@ -43,28 +39,18 @@ for aidx in range(data.alphaCount//10):
 	alphas = data.loadAlphas()
 
 	y = np.abs(bg.psi(x,k,alphas))**2
-	i0 = np.argmax(y)
+
+	mc = np.sum((np.array([np.cos(2*np.pi*x),np.sin(2*np.pi*x)])*y.T).T,axis=0)
+	print("mcv",mc,flush=True)
 	
-	# x[len(x)//2]==0.0
-	minMC = np.abs(calcMC(np.roll(y,len(x)//2-i0)))
-	minJ0 = i0
-	minDiff = 0
+	i0 = np.argmin(np.abs(x-np.arctan2(mc[1],mc[0])/np.pi))
 	
-	for _ in range(200):
-		j0 = minJ0+np.random.randint(-searchRadius,searchRadius)+np.random.randint(-searchRadius,searchRadius)
-		yy = np.roll(y,len(x)//2-j0)
-		mc = np.abs(calcMC(yy))
-		if mc<minMC:
-			minJ0 = (j0+len(x))%len(x)
-			minDiff = j0-i0
-			minMC = mc
-	'''print("diff:",minDiff*dx,minMC,flush=True)
-	yy = np.roll(y,len(x)//2-minJ0)
+	'''yy = np.roll(y,len(x)//2-i0)
 	plt.clf()
+	plt.plot(x,y)
 	plt.plot(x,yy)
 	plt.show()'''
 	
-	i0 = minJ0
 	x0 = x[i0]
 	idx = np.array(list(range(len(x))))
 	idx = ((idx+len(idx)//2-i0)%len(idx))//binSize
