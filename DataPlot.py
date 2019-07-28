@@ -14,8 +14,6 @@ aX = [1/n for n in aX]
 fX, fY =np.loadtxt('idealgas/analytic/flucdata.csv', unpack=True,delimiter=',')
 fX = [1/n for n in fX]
 
-plt.plot(fX,fY, linestyle='dashed',c="black", label="ideal analytic")
-
 
 mcX = []
 mcF = []
