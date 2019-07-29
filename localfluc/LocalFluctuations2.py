@@ -24,24 +24,21 @@ binSize = 4*(4*data.nmax)
 x = np.linspace(-0.5,0.5,binSize*binCount,endpoint=False)
 dx = 1.0/len(x)
 
-searchRadius = len(x)//4
-print("searchRadius =",searchRadius,(2*searchRadius+1)*dx,flush=True)
-
 k = []
 for i in range(-data.nmax,data.nmax+1):
 	k.append(i)
 k = np.array(k)
 
-status = bg.Status(10)
-for aidx in range(data.alphaCount//10):
-	status.update(aidx,data.alphaCount//10)
+status = bg.Status()
+for aidx in range(data.alphaCount):
+	status.update(aidx,data.alphaCount)
 
 	alphas = data.loadAlphas()
 
 	y = np.abs(bg.psi(x,k,alphas))**2
 
 	mc = np.sum((np.array([np.cos(2*np.pi*x),np.sin(2*np.pi*x)])*y.T).T,axis=0)
-	print("mcv",mc,flush=True)
+	#print("mcv",mc,flush=True)
 	
 	i0 = np.argmin(np.abs(x-np.arctan2(mc[1],mc[0])/np.pi))
 	
