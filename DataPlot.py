@@ -4,6 +4,17 @@ import sys
 import numpy as np
 from matplotlib import pyplot as plt
 
+aX = []
+aY = []
+fX = []
+fY = []
+
+aX, aY =np.loadtxt('idealgas/analytic/avgdata.csv', unpack=True,delimiter=',')
+aX = [1/n for n in aX]
+fX, fY =np.loadtxt('idealgas/analytic/flucdata.csv', unpack=True,delimiter=',')
+fX = [1/n for n in fX]
+
+
 mcX = []
 mcF = []
 mcU = []
@@ -26,8 +37,10 @@ mcX = [n*n/0.58 for n in mcX]
 
 if sys.argv[2]=='f':
 	plt.errorbar(mcX,mcF,marker='v',ls=' ',label='MC ideal',c="black",markersize=size)
+	plt.plot(fX,fY, linestyle='dashed',c="black", label="ideal analytic")
 else:
 	plt.errorbar(mcX,mcY,yerr=mcU,ls=' ',marker='v',label='MC ideal',c="black",markersize=size)
+	plt.plot(aX,aY, linestyle='dashed',c="black", label="ideal analytic")
 
 mcX = []
 mcU = []
@@ -104,7 +117,7 @@ else:
 plt.xlabel('$k_B T/\epsilon$',fontsize=16)
 if sys.argv[2]=='f':
 	plt.ylabel("$\\sqrt{Var[n_0]}$",fontsize=16)
-	plt.legend(fontsize=11,loc='upper right')
+	plt.legend(fontsize=11,loc='upper left')
 else:
 	plt.ylabel('$<n_0>$',fontsize=16)
 	plt.legend(fontsize=12,loc='lower left')
