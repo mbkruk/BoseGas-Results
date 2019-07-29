@@ -40,7 +40,7 @@ for aidx in range(data.alphaCount):
 	mc = np.sum((np.array([np.cos(2*np.pi*x),np.sin(2*np.pi*x)])*y.T).T,axis=0)
 	#print("mcv",mc,flush=True)
 	
-	i0 = np.argmin(np.abs(x-np.arctan2(mc[1],mc[0])/np.pi))
+	i0 = np.argmin(np.abs(x-np.arctan2(mc[1],mc[0])/(2*np.pi)))
 	
 	'''yy = np.roll(y,len(x)//2-i0)
 	plt.clf()
