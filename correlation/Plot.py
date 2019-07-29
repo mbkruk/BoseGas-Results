@@ -9,31 +9,21 @@ g2=[]
 g3=[]
 
 X=[]
+iX, iY =np.loadtxt('ideal/analytic.csv', unpack=True,delimiter=',')
+
+plt.plot(iX,iY, label='ideal analytic')
 
 for n in range(4,15+1):
-	with open("0.025/"+sys.argv[1]+"/n-{}.out".format(n),"r") as f:
+	with open("ideal/mc/n-{}.out".format(n),"r") as f:
 		data = f.read().split()
 		X.append(n)
 		g1.append(float(data[-1]))
 
 X = [n*n/0.58 for n in X]
-plt.scatter(X,g1, marker='.', label='g=0.05',c='black',s=70)
+plt.scatter(X,g1, marker='x', label='ideal mc',c='red',s=70)
 
-for n in range(4,15+1):
-	with open("0.075/"+sys.argv[1]+"/n-{}.out".format(n),"r") as f:
-		data = f.read().split()
-		g2.append(float(data[-1]))
-
-plt.scatter(X,g2, marker='x', label='g=0.15',c='blue')
-
-for n in range(4,15+1):
-	with open("0.125/"+sys.argv[1]+"/n-{}.out".format(n),"r") as f:
-		data = f.read().split()
-		g3.append(float(data[-1]))
-
-plt.scatter(X,g3, marker='v', label='g=0.25',c='red')
 
 plt.xlabel('$k_B T$')
-plt.ylabel('$\Delta$ l')
+plt.ylabel('$L_\phi$')
 plt.legend()
 plt.show()
