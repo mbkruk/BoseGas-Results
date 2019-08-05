@@ -76,36 +76,61 @@ correlationClassD[x_, n_, nmax_, g_] :=
      g]*(-2 Sum[
        2 Pi q Sin[2 Pi*q*x]*int[q, n, nmax, g], {q, 1, nmax}])/n;
 
-n = SetPrecision[100, 30];
-ncut = SetPrecision[50, 30];
-nmax = SetPrecision[3, 30];
-beta = SetPrecision[0.58/nmax^2, 30];
+
+nmax = ToExpression[$ScriptCommandLine[[2]]];
+
+precision = 1024
+n = SetPrecision[100,precision];
+ncut = SetPrecision[30,precision];
+nmax = SetPrecision[nmax,precision];
+mt = {0,0.4,0.64,0.9};
+m[nn_]:=If[nn<=Length[mt],mt[[nn]],1];
+beta = SetPrecision[m[nmax]0.58/nmax^2,precision];(* nmax=3 => *0.64, nmax=2 => *0.4 *)
 lnbeta = Log[beta]
-lnbeps = SetPrecision[0.001, 30];
+lnbeps = SetPrecision[0.0001,precision];
+xeps = SetPrecision[10^(-6),precision];
+lnbeta0 = lnbeta
 
-niter = 8;
+calcCoeffs[n_,beta_]:=Table[((dZdE[q, n, ncut] /. {\[Beta] -> 1, energy[arg_] -> ebeta (arg)^2})/.{ebeta->beta})/f2[0,n,ncut,beta]/n,{q,0,ncut}];
 
-widthDiff[lnb_]:=Module[{x,y,beta,i,dx,dy},
+cce[coeffs_,deltax_]:=Sum[coeffs[[q+1]]Cos[2 Pi q deltax],{q,0,ncut}];
+cced[coeffs_,deltax_]:=Sum[(-2 Pi q)coeffs[[q+1]]Sin[2 Pi q deltax],{q,0,ncut}];
+
+x = SetPrecision[0.5/(nmax+1),precision];
+y = SetPrecision[0.5/(nmax+1),precision];
+
+widthDiff[lnb_]:=Module[{beta,i,dx,dy,coeffs},
 	beta = Exp[lnb];
-	x = SetPrecision[0.05, 30];
-	y = SetPrecision[0.05, 30];
-	For[i = 1, i <= niter, i++,
-		dx = (correlationExact[x,n,ncut,beta] - SetPrecision[0.5, 30])/correlationExactD[x,n,ncut,beta];
-		dy = (correlationClass[y,n,nmax,beta] - SetPrecision[0.5, 30])/correlationClassD[y,n,nmax,beta];
-		If[N[Abs[dx]+Abs[dy]]>0.05,Print["! ",i," ",N[dx]," ",N[dy]]];
+	coeffs = calcCoeffs[n,beta];
+	dx = 1;
+	While[Abs[dx]>xeps,
+		dy = cced[coeffs,x];
+		dx = (cce[coeffs,x] - SetPrecision[0.5,precision])/dy;
 		x -= dx;
+	];
+	dy = 1;
+	While[Abs[dy]>xeps,
+		dx = correlationClassD[y,n,nmax,beta];
+		dy = (correlationClass[y,n,nmax,beta] - SetPrecision[0.5,precision])/dx;
 		y -= dy;
 	];
 	x-y
 ];
-
-For[j=1,j<=5,j++,
+d1 = 1;
+While[Abs[d1]>=xeps,
 	d0 = widthDiff[lnbeta-lnbeps];
 	d1 = widthDiff[lnbeta];
 	d2 = widthDiff[lnbeta+lnbeps];
-	Print[N[d0],"  ",N[d1],"  ",N[d2]];
-	lnbeta -= 2 lnbeps d1/(d2-d0);
-	Print["wd=",d1," beta=",Exp[lnbeta]];
+	plb = N[Exp[lnbeta]];
+	delta = -2 lnbeps d1/(d2-d0);
+	delta = delta/(1+Abs[delta]/0.1);
+	lnbeta += delta;
 ];
 
-Print["beta=",Exp[lnbeta]];
+beta = N[Exp[lnbeta]]
+
+Print["nmax = ",N[nmax]];
+Print["diff = ",N[d1]];
+Print["beta = ",beta];
+Print["nmax' = ",Sqrt[0.58/beta]]
+Print["b/b = ",beta/(0.58/nmax^2)];
