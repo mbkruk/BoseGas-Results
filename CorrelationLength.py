@@ -35,11 +35,11 @@ for aidx in range(data.alphaCount):
 	densityValues += np.abs(psix)**2
 	values += np.conj(bg.psi(0.0,k,alphas))*psix
 
-values = np.abs(values) / data.alphaCount
+values = np.abs(values) / data.alphaCount 
 densityValues = np.sqrt(densityValues / data.alphaCount)
 values = np.divide(values,densityValues[list(x).index(0)]*densityValues)
-plt.plot(x,values)
-plt.show()
+#plt.plot(x,values)
+#plt.show()
 
 tab1 = values[: list(x).index(0)+1]
 tab2 = values[list(x).index(0):]
