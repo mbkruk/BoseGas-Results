@@ -9,12 +9,14 @@ from matplotlib import pyplot as plt
 binCount = 101
 bins = []
 
-if len(sys.argv)!=2:
-	print("usage: LocalFluctuations.py <data>")
+if len(sys.argv)!=3 or not sys.argv[2] in ["save","plot"]:
+	print("usage: LocalFluctuations.py <data> <save/plot>")
 	exit(1)
 
 input = sys.argv[1]
 output = "plt/"+input.replace("data/","data2/")
+
+plot = sys.argv[2]=="plot"
 
 print(output,flush=True)
 
@@ -42,11 +44,12 @@ for aidx in range(data.alphaCount):
 	
 	i0 = np.argmin(np.abs(x-np.arctan2(mc[1],mc[0])/(2*np.pi)))
 	
-	'''yy = np.roll(y,len(x)//2-i0)
-	plt.clf()
-	plt.plot(x,y)
-	plt.plot(x,yy)
-	plt.show()'''
+	if plot:
+		yy = np.roll(y,len(x)//2-i0)
+		plt.clf()
+		plt.plot(x,y)
+		plt.plot(x,yy)
+		plt.show()
 	
 	x0 = x[i0]
 	idx = np.array(list(range(len(x))))
@@ -65,4 +68,5 @@ for aidx in range(data.alphaCount):
 bins = np.array(bins)
 locFluc = np.std(bins,axis=0)/np.mean(bins,axis=0)
 
-np.save(output,locFluc)
+if not plot:
+	np.save(output,locFluc)
