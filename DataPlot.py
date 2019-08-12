@@ -36,10 +36,10 @@ for n in range(1,22+1):
 mcX = [n*n/0.58 for n in mcX]
 
 if sys.argv[2]=='f':
-	plt.errorbar(mcX,mcF,marker='v',ls=' ',label='MC ideal',c="black",markersize=size)
+	plt.errorbar(mcX,mcF,marker='v',ls=' ',label='ideal MC',c="black",markersize=size)
 	plt.plot(fX,fY, linestyle='dashed',c="black", label="ideal analytic")
 else:
-	plt.errorbar(mcX,mcY,yerr=mcU,ls=' ',marker='v',label='MC ideal',c="black",markersize=size)
+	plt.errorbar(mcX,mcY,yerr=mcU,ls=' ',marker='v',label='ideal MC',c="black",markersize=size)
 	plt.plot(aX,aY, linestyle='dashed',c="black", label="ideal analytic")
 
 mcX = []
@@ -71,11 +71,11 @@ mcX = [n*n/0.58 for n in mcX]
 evX = [n*n/0.58 for n in evX]
 
 if sys.argv[2]=='f':
-	plt.errorbar(mcX,mcF,marker='x',ls=' ',label='MC',c="blue",markersize=size)
-	plt.errorbar(evX,evF,marker='.',ls=' ',label='EV',c="mediumturquoise",markersize=1.2*size)
+	plt.errorbar(mcX,mcF,marker='x',ls=' ',label='contact MC',c="blue",markersize=size)
+	plt.errorbar(evX,evF,marker='.',ls=' ',label='contact EV',c="mediumturquoise",markersize=1.2*size)
 else:
-	plt.errorbar(mcX,mcY,yerr=mcU,ls=' ',marker='x',label='MC',c="blue",markersize=size)
-	plt.errorbar(evX,evY,marker='.',ls=' ',label='EV',c="mediumturquoise",markersize=1.2*size)
+	plt.errorbar(mcX,mcY,yerr=mcU,ls=' ',marker='x',label='contact MC',c="blue",markersize=size)
+	plt.errorbar(evX,evY,marker='.',ls=' ',label='contact EV',c="mediumturquoise",markersize=1.2*size)
 
 mcX = []
 mcU = []
@@ -108,11 +108,11 @@ evX = [n*n/0.58 for n in evX]
 plt.xscale("log")
 
 if sys.argv[2]=='f':
-	plt.errorbar(mcX,mcF,marker='x',ls=' ',label='MC dd $l_{\perp}$=0.025',c="red",markersize=size)
-	plt.errorbar(evX,evF,marker='.',ls=' ',label='EV dd $l_{\perp}$=0.025', c="indianred",markersize=1.2*size)
+	plt.errorbar(mcX,mcF,marker='x',ls=' ',label='dd $l_{\perp}$=0.025 MC',c="red",markersize=size)
+	plt.errorbar(evX,evF,marker='.',ls=' ',label='dd $l_{\perp}$=0.025 EV', c="indianred",markersize=1.2*size)
 else:
-	plt.errorbar(mcX,mcY,yerr=mcU,ls=' ',marker='x',label='MC dd $l_{\perp}$=0.025',c="red",markersize=size)
-	plt.errorbar(evX,evY,marker='.',ls=' ',label='EV dd $l_{\perp}$=0.025', c="indianred",markersize=1.2*size)
+	plt.errorbar(mcX,mcY,yerr=mcU,ls=' ',marker='x',label='dd $l_{\perp}$=0.025 MC',c="red",markersize=size)
+	plt.errorbar(evX,evY,marker='.',ls=' ',label='dd $l_{\perp}$=0.025 EV', c="indianred",markersize=1.2*size)
 
 plt.xlabel('$k_B T/\epsilon$',fontsize=16)
 if sys.argv[2]=='f':
