@@ -8,6 +8,10 @@ from matplotlib import pyplot as plt
 resolution = 1024
 fname = sys.argv[1]
 output = fname.replace(".txt",".npy")
+if len(sys.argv)>=3:
+	begin = float(sys.argv[2])
+else:
+	begin = 0
 
 data = bg.MCData(fname)
 
@@ -22,6 +26,8 @@ status = bg.Status()
 for aidx in range(data.alphaCount):
 	status.update(aidx,data.alphaCount)
 	alphas = data.loadAlphas()
+	if aidx<begin*data.alphaCount:
+		continue
 	y = np.abs(bg.psi(xx,k,alphas))**2
 	x0 = xx[np.argmax(y)]
 	x = x0+2*xx/resolution
