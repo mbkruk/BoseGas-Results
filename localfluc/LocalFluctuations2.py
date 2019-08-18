@@ -9,12 +9,15 @@ from matplotlib import pyplot as plt
 binCount = 101
 bins = []
 
-if len(sys.argv)!=3 or not sys.argv[2] in ["save","plot"]:
-	print("usage: LocalFluctuations.py <data> <save/plot>")
+if not(len(sys.argv) in [3,4]) or not sys.argv[2] in ["save","plot"]:
+	print("usage: LocalFluctuations.py <data> <save/plot> <output>")
 	exit(1)
 
 input = sys.argv[1]
-output = "plt/"+input.replace("data/","data2/")
+if len(sys.argv)==4:
+	output = sys.argv[3]
+else:
+	output = "plt/"+input.replace("data/","data2/")
 
 plot = sys.argv[2]=="plot"
 

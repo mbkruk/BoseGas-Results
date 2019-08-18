@@ -9,18 +9,31 @@ import BoseGas as bg
 binCount = 101
 bins = []
 
-if len(sys.argv)!=2:
-	print("usage: Plot.py <data>")
+if not len(sys.argv) in [2,3]:
+	print("usage: Plot.py <data> <output>")
 	exit(1)
 
 input = sys.argv[1]
-output = sys.argv[1].replace(".txt.npy",".pdf").replace("plt/data/","plt/").replace("plt/data2/","plt/mc-")
+if input.endswith(".txt.npy"):
+	if len(sys.argv)==2:
+		output = sys.argv[1].replace(".txt.npy",".pdf").replace("plt/data/","plt/").replace("plt/data2/","plt/mc-")
+	locFluc = np.load(input)
+else:
+	output = None
+	if input.endswith(".txt"):
+		locFluc = np.loadtxt(input)
+	else:
+		locFluc = np.load(input)
 
-locFluc = np.load(input)
+if len(sys.argv)==3:
+	output = sys.argv[2]
 
 plt.ylabel("$\\frac{\Delta N}{N}$")
 plt.xlabel("$\\frac{x}{L}$")
 plt.plot(np.linspace(-0.5,0.5,len(locFluc),endpoint=False),locFluc,ls=' ',marker='.')
 
-print(output,flush=True)
-plt.savefig(output)
+if output!=None:
+	print(output,flush=True)
+	plt.savefig(output)
+else:
+	plt.show()
