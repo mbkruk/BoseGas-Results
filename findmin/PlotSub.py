@@ -11,6 +11,9 @@ def wid(t):
 def ene(t):
 	return np.pi*99.0*99.0*100.0*x*x
 
+plt.rcParams['figure.figsize'] = [8.5/2.54, 10/2.54]
+plt.rcParams['axes.linewidth'] = 0.6
+
 mccsig=[]
 mccsigstd=[]
 mccene=[]
@@ -73,38 +76,45 @@ ax3 = plt.subplot(2,2,3,sharex=ax1)
 ax4 = plt.subplot(2,2,4,sharex=ax2)
 
 y=ene(x)
-ax1.errorbar(gammasc,mccene,yerr=mccenestd,ls=' ',marker='v',label='MC simulations',c="red")
-ax1.plot(x,y,c="blue", label='Gauss ansatz')
+ax1.errorbar(gammasc,mccene,yerr=mccenestd,ls=' ',marker='v',label='MC simulations',c="red",markersize='5',elinewidth=1.1)
+ax1.plot(x,y,c="blue", label='Gaussian ansatz',linewidth=0.8)
 
 
-ax2.errorbar(gammasd,wolfene,ls=' ',marker='x',label='Gauss ansatz',c="blue",markersize='8')
-ax2.errorbar(gammasd,mcdene,yerr=mcdsigstd,ls=' ',marker='v',label='MC simulations',c="red")
+ax2.errorbar(gammasd,wolfene,ls=' ',marker='x',label='Gaussian ansatz',c="blue",markersize='5')
+ax2.errorbar(gammasd,mcdene,yerr=mcdsigstd,ls=' ',marker='v',label='MC simulations',c="red",markersize='5',elinewidth=1.1)
 
 
 y = wid(x)
-ax3.errorbar(gammasc,mccsig,yerr=mccsigstd,ls=' ',marker='v',label='MC simulations',c="red")
-ax3.plot(x,y,c="blue", label='Gauss ansatz')
+ax3.errorbar(gammasc,mccsig,yerr=mccsigstd,ls=' ',marker='v',label='MC simulations',c="red",markersize='5',elinewidth=1.1)
+ax3.plot(x,y,c="blue", label='Gaussian ansatz',linewidth=0.8)
 
-ax4.errorbar(gammasd,wolfsig,ls=' ',marker='x',label='Gauss ansatz',c="blue",markersize='8')
-ax4.errorbar(gammasd,mcdsig,yerr=mcdsigstd,ls=' ',marker='v',label='MC simulations',c="red")
+ax4.errorbar(gammasd,wolfsig,ls=' ',marker='x',label='Gaussian ansatz',c="blue",markersize='5',elinewidth=1.1)
+ax4.errorbar(gammasd,mcdsig,yerr=mcdsigstd,ls=' ',marker='v',label='MC simulations',c="red",markersize='5',elinewidth=1.1)
 
-ax1.tick_params(labelsize=10)
-ax2.tick_params(labelsize=10)
-ax3.tick_params(labelsize=10)
-ax4.tick_params(labelsize=10)
+ax1.tick_params(labelsize=6)
+ax2.tick_params(labelsize=6)
+ax3.tick_params(labelsize=6)
+ax4.tick_params(labelsize=6)
+
+ax1.locator_params(axis='y', nbins=5)
+ax2.locator_params(axis='y', nbins=5)
+ax3.locator_params(axis='y', nbins=5)
+ax4.locator_params(axis='y', nbins=5)
+
 
 
 plt.setp(ax1.get_xticklabels(), visible=False)
 plt.setp(ax2.get_xticklabels(), visible=False)
 
-ax1.set_ylabel('$|E_{min}|/\epsilon$',fontsize=14)
-ax3.set_ylabel('$\lambda/L$', fontsize=14)
-ax3.set_xlabel('$|g|$', fontsize=14)
-ax4.set_xlabel('$|g|$', fontsize=14)
+ax1.set_ylabel('$|E_{min}|/\epsilon$',fontsize=9,labelpad=-1)
+ax3.set_ylabel('$\lambda/L$', fontsize=9,labelpad=-1)
+ax3.set_xlabel('$|g|$', fontsize=9)
+ax4.set_xlabel('$|g|$', fontsize=9)
 
 ax1.legend(bbox_to_anchor=(0,1.02,1,0.2), loc="lower left",
-                mode="expand", borderaxespad=0, ncol=1, fontsize=12)
+                mode="expand", borderaxespad=0, ncol=1, fontsize=8)
 ax2.legend(bbox_to_anchor=(0,1.02,1,0.2), loc="lower left",
-                mode="expand", borderaxespad=0, ncol=1,fontsize=12)
-plt.subplots_adjust(top=0.9, right=0.97)
+                mode="expand", borderaxespad=0, ncol=1,fontsize=8)
+plt.subplots_adjust(top=0.9, right=0.98, wspace=0.25)
+plt.savefig('../figures/fig4.pdf', dpi=600)
 plt.show()
