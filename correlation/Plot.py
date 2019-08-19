@@ -17,8 +17,8 @@ cX, cY =np.loadtxt('ideal/idealclass-n-9.csv', unpack=True,delimiter=',')
 
 ax2.plot(eX,eY, label='exact', linewidth=0.7,c='black')
 ax2.plot(cX,cY, alpha=0.45, label='cf',c='C1')
-ax2.set_xlabel('$x/L$', fontsize=6.5, labelpad=-0.5)
-ax2.set_ylabel('$g_1(x)$', fontsize=6.5,labelpad=-0.2)
+ax2.set_xlabel('$x/L$', fontsize=6.5, labelpad=-0.15)
+ax2.set_ylabel('$g_1(x)$', fontsize=6.5)
 ax2.tick_params(labelsize=5)
 ax2.legend(loc='upper right',fontsize=5.5, handlelength=0.5)
 ax2.text(-0.46,0.78,'(a)',fontsize=9)
@@ -39,7 +39,7 @@ effconst = ratios*0.58
 ax3.axhline(y=0.58,color="black", linestyle='dashed', label='old',zorder=1,linewidth=1.0)
 ax3.scatter(nmax,effconst,s=5, label='new',zorder=2)
 ax3.set_xlabel('$n_{max}$',fontsize=6.5,labelpad=-1)
-ax3.set_ylabel('$\\beta n_{max}^2$',fontsize=6.5,labelpad=-0.2)
+ax3.set_ylabel('$\\beta n_{max}^2$',fontsize=6.5)
 ax3.tick_params(labelsize=5)
 ax3.legend(loc='lower right',fontsize=5.5)
 ax3.text(2.5,0.75,'(b)',fontsize=9)
@@ -51,7 +51,7 @@ for n in range(4,15+1):
 		g1.append(float(data[-1]))
 
 X = [n*n/0.58/ratios[n-2] for n in X]
-ax1.scatter(X,g1, marker='s', label='ideal mc',c='black',s=size,zorder=2)
+ax1.scatter(X,g1, marker='s', label='ideal MC',c='black',s=size,zorder=2)
 
 for n in range(4,15+1):
 	with open("0.1/contact/n-{}.out".format(n),"r") as f:
