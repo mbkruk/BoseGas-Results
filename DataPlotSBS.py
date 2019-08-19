@@ -6,8 +6,9 @@ from matplotlib import pyplot as plt
 
 plt.rc('xtick', labelsize=7) 
 plt.rc('ytick', labelsize=7) 
+plt.rcParams['axes.linewidth'] = 0.6
 
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(17/2.54,2.4))
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(17/2.54,2.5))
 
 aX = []
 aY = []
@@ -25,7 +26,7 @@ imcF = []
 imcU = []
 imcY = []
 
-size=5.5
+size=5
 
 for n in range(1,22+1):
 	with open("idealgas/mc/n-{}.out".format(n),"r") as f:
@@ -42,10 +43,10 @@ imcX = [n*n/0.58 for n in imcX]
 
 
 ax2.errorbar(imcX,imcF,marker='v',ls=' ',label='ideal MC',c="black",markersize=size)
-ax2.plot(fX,fY, linestyle='dashed',c="black", label="ideal analytic")
+ax2.plot(fX,fY, linestyle='dashed',c="black", label="ideal analytic",linewidth=1.0)
 
 ax1.errorbar(imcX,imcY,yerr=imcU,ls=' ',marker='v',label='ideal MC',c="black",markersize=size)
-ax1.plot(aX,aY, linestyle='dashed',c="black", label="ideal analytic")
+ax1.plot(aX,aY, linestyle='dashed',c="black", label="ideal analytic",linewidth=1.0)
 
 mcX = []
 mcU = []
@@ -119,13 +120,13 @@ ax2.errorbar(devX,devF,marker='.',ls=' ',label='dd $l_{\perp}$=0.025 EV', c="ind
 ax1.errorbar(dmcX,dmcY,yerr=dmcU,ls=' ',marker='x',label='dd $l_{\perp}$=0.025 MC',c="red",markersize=size)
 ax1.errorbar(devX,devY,marker='.',ls=' ',label='dd $l_{\perp}$=0.025 EV', c="indianred",markersize=1.2*size)
 
-ax2.set_xlabel('$k_B T/\epsilon$',fontsize=9)
-ax1.set_xlabel('$k_B T/\epsilon$',fontsize=9)
+ax2.set_xlabel('$k_B T/\epsilon$',fontsize=9, labelpad=-0.5)
+ax1.set_xlabel('$k_B T/\epsilon$',fontsize=9, labelpad=-0.5)
 
 ax2.set_ylabel("$\\sqrt{Var[n_0]}$",fontsize=9)
 ax2.legend(fontsize=5.6,loc='upper left')
 
-ax1.set_ylabel('$<n_0>$',fontsize=9)
+ax1.set_ylabel('$<n_0>$',fontsize=9, labelpad=-2)
 ax1.legend(fontsize=5.6,loc='lower left')
 
 plt.tight_layout(rect=(-0.021,-0.07,1.02,1.06))
