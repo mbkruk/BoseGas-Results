@@ -6,10 +6,10 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 def wid(t):
-	return 1.0/(np.power(2.0*np.pi,1.5)*99.0*t)
+	return 1.0/(np.power(2.0,0.5)*np.power(np.pi,1.5)*99.0*t)
 
 def ene(t):
-	return np.pi*99.0*99.0*100.0*x*x
+	return np.pi*99.0*99.0*100.0*x*x/4.0
 
 plt.rcParams['figure.figsize'] = [8.5/2.54, 10/2.54]
 plt.rcParams['axes.linewidth'] = 0.6
@@ -67,6 +67,9 @@ for n in range(1,12+1):
 		data = data[-2].split()
 		wolfsig.append(float(data[0]))
 		wolfene.append((-1.0)*float(data[1]))
+#zmiana jednostek
+gammasc = [2*n for n in gammasc]
+gammasd = [2*n for n in gammasd]
 
 delta=(gammasc[11]-gammasc[0])/20
 x = np.linspace(gammasc[0]-delta,gammasc[11]+delta,1000)
