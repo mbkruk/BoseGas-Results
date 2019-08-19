@@ -6,18 +6,24 @@ import BoseGas as bg
 from matplotlib import pyplot as plt
 from scipy import optimize as spopt
 
+plt.rcParams['figure.figsize'] = [8.5/2.54, 2.5]
+plt.rcParams['axes.linewidth'] = 0.6
+plt.rc('xtick', labelsize=7) 
+plt.rc('ytick', labelsize=7)
+
 fname = sys.argv[1]
 
 ldx = np.load(fname)
 
 fig, ax1 = plt.subplots()
-left, bottom, width, height = [0.50, 0.2, 0.35, 0.35]
+left, bottom, width, height = [0.61, 0.3, 0.35, 0.35]
 ax2 = fig.add_axes([left, bottom, width, height])
 
 # hist
 
-ax2.set_xlabel("$\Delta x$")
-ax2.set_ylabel("$p(\Delta x)$")
+ax2.set_xlabel("$\Delta x$",fontsize=6,labelpad=-0.5)
+ax2.set_ylabel("$p(\Delta x)$",fontsize=6,labelpad=-0.5)
+ax2.tick_params(labelsize=5)
 n, bins, labels = plt.hist(ldx,bins=51,density=True)
 
 maxi = np.argmax(n)
@@ -81,17 +87,19 @@ print("MD chi^2_r =",mdchi2red,flush=True)
 ax2.set_ylim((0,(maxh+min(delta0,2*maxh))/2*1.05))
 x = np.linspace(np.min(ldx),np.max(ldx),256)
 y = gauss(x,*hp)
-ax2.plot(x,y)
+ax2.plot(x,y,linewidth=1.0)
 
-ax1.set_xlabel("MC steps")
-ax1.set_ylabel("$<|x|>$")
+ax1.set_xlabel("MC steps",fontsize=9)
+ax1.set_ylabel("$<|x|>$",fontsize=9, labelpad=-1)
 
-ax1.errorbar(t,mdm,yerr=mdu)
+ax1.errorbar(t,mdm,yerr=mdu,c='blue')
 x = np.linspace(0,mdn,256)
-ax1.plot(x,f(x,*mdp))
+ax1.plot(x,f(x,*mdp),c='red',linewidth=0.6)
+ax1.locator_params(axis='y', nbins=5) 
 
 output = "inset-"+(fname.replace(".npy",".pdf"))
 plt.savefig(output)
 print(output,flush=True)
-
+plt.tight_layout(rect=(0,-0.03,1.04,1.05))
+plt.savefig('../figures/fig5.pdf', dpi=600)
 plt.show()
