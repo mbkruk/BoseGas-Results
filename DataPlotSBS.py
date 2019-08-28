@@ -131,5 +131,5 @@ ax1.legend(fontsize=5.6,loc='lower left')
 
 plt.tight_layout(rect=(-0.021,-0.07,1.02,1.06))
 fig.subplots_adjust(wspace=0.21)
-plt.savefig('figures/fig2.pdf', dpi=600)
+plt.savefig('figures/fig2.eps', dpi=1200)
 plt.show()

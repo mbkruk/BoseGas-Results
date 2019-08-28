@@ -119,5 +119,5 @@ ax1.legend(bbox_to_anchor=(0,1.02,1,0.2), loc="lower left",
 ax2.legend(bbox_to_anchor=(0,1.02,1,0.2), loc="lower left",
                 mode="expand", borderaxespad=0, ncol=1,fontsize=8)
 plt.subplots_adjust(top=0.9, right=0.98, wspace=0.25)
-plt.savefig('../figures/fig4.pdf', dpi=600)
+plt.savefig('../figures/fig4.eps', dpi=1200)
 plt.show()

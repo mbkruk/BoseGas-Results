@@ -44,5 +44,5 @@ ax4.set_xlabel("$x/L$", fontsize=9,labelpad=-1)
 
 plt.tight_layout(rect=(-0.04,-0.04,1.04,1.04))
 plt.subplots_adjust(wspace=0.22)
-plt.savefig('../figures/fig6.pdf', dpi=600)
+plt.savefig('../figures/fig6.eps', dpi=1200)
 plt.show()
