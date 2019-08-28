@@ -5,6 +5,7 @@
 #include <math.h>
 #include <immintrin.h>
 #include <time.h>
+#include <string.h>
 
 #define MODE_MAX 32
 #define SAMPLE_RATE_MAX 32768
@@ -35,8 +36,23 @@ double im[MODE_MAX] __attribute__((aligned(32)));
 double coskx[MODE_MAX*SAMPLE_RATE_MAX] __attribute__((aligned(32)));
 double sinkx[MODE_MAX*SAMPLE_RATE_MAX] __attribute__((aligned(32)));
 
-int main()
+int main(int argc, const char *argv[])
 {
+	if (argc!=2)
+	{
+		err:
+		fprintf(stderr,"localfluc <mc/max> < input > output\n");
+		fflush(stderr);
+		return 1;
+	}
+	int method;
+	if (!strcmp(argv[1],"mc"))
+		method = 1;
+	else
+	if (!strcmp(argv[1],"max"))
+		method = 0;
+	else
+		goto err;
 	uint32_t N, alpha_count;
 	int32_t nmax;
 	double gamma;
@@ -63,7 +79,7 @@ int main()
 	double *bins = malloc(sizeof(double)*bin_total);
 	for (size_t i=0;i<bin_total;++i)
 		bins[i] = 0.0;
-	
+
 	const double dx = 1.0/sample_rate;
 
 	for (int32_t n=-nmax;n<=nmax;++n)
@@ -119,27 +135,35 @@ int main()
 		for (uint32_t i=0;i<sample_rate;++i)
 			yy[i] = yy[i]*yy[i]+zz[i]*zz[i];
 
-		// center of mass (on a circle)
-		/*x = y = 0.0;
-		for (uint32_t i=0;i<sample_rate;++i)
+		uint32_t shift;
+
+		if (method) // mc
 		{
-			x += yy[i]*cos(tau*xx[i]);
-			y += yy[i]*sin(tau*xx[i]);
+			// center of mass (on a circle)
+			x = y = 0.0;
+			for (uint32_t i=0;i<sample_rate;++i)
+			{
+				x += yy[i]*cos(tau*xx[i]);
+				y += yy[i]*sin(tau*xx[i]);
+			}
+			x /= (double)sample_rate;
+			y /= (double)sample_rate;
+
+			double angle = atan2(y,x);
+
+			shift = MIN(MAX((int32_t)((angle/tau+0.5)*(double)sample_rate),0),sample_rate-1);
 		}
-		x /= (double)sample_rate;
-		y /= (double)sample_rate;
-
-		double angle = atan2(y,x);
-
-		uint32_t shift = MIN(MAX((int32_t)((angle/tau+0.5)*(double)sample_rate),0),sample_rate-1);*/
-
-		uint32_t shift = 0;
-		double vmax = yy[shift];
-		for (uint32_t i=shift+1;i<sample_rate;++i)
-		if (yy[i]>vmax)
+		else // max
 		{
-			vmax = yy[i];
-			shift = i;
+			// maximum abs value
+			shift = 0;
+			double vmax = yy[shift];
+			for (uint32_t i=shift+1;i<sample_rate;++i)
+			if (yy[i]>vmax)
+			{
+				vmax = yy[i];
+				shift = i;
+			}
 		}
 
 		for (uint32_t i=0, j;i<sample_rate;++i)
