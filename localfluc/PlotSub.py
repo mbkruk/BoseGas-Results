@@ -27,7 +27,7 @@ ax1 = plt.subplot(2,2,1)
 ax2 = plt.subplot(2,2,2)
 ax3 = plt.subplot(2,2,3,sharex=ax1)
 ax4 = plt.subplot(2,2,4,sharex=ax2)
-size=5
+size=10
 ax1.scatter(x1,data1,marker='.',c="blue",s=size)
 ax2.scatter(x2,data2,marker='.',c="blue",s=size)
 ax3.scatter(x3,data3,marker='.',c="blue",s=size)

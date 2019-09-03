@@ -21,7 +21,7 @@ x = list(range(len(exact)))
 
 marker = '.'
 alpha = 1.0
-size = 9
+size = 10
 
 plt.scatter(x,exact,label="exact",marker=marker,c='black', s=size)
 plt.scatter(x,good,label="$n_{max}=4$ (optimal)",marker=marker,alpha=alpha,c='lime',s=size)
