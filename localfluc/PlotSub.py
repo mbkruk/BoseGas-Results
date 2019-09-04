@@ -11,10 +11,11 @@ plt.rc('xtick', labelsize=7)
 plt.rc('ytick', labelsize=7)
 
 
-data1 = np.loadtxt("n1c.txt")
-data2 = np.loadtxt("n3c.txt")
-data3 = np.loadtxt("n1d.txt")
-data4 = np.loadtxt("n3d.txt")
+data1 = np.loadtxt("n1-e7-contact.out.txt")
+data2 = np.loadtxt("n3-e7-contact.out.txt")
+data3 = np.loadtxt("n1-e7-dipole-0.060.out.txt")
+data4 = np.loadtxt("n3-e7-dipole-0.060.out.txt")
+
 
 x1 = np.linspace(-0.5,0.5,len(data1),endpoint=False)
 x2 = np.linspace(-0.5,0.5,len(data2),endpoint=False)
@@ -26,7 +27,7 @@ ax1 = plt.subplot(2,2,1)
 ax2 = plt.subplot(2,2,2)
 ax3 = plt.subplot(2,2,3,sharex=ax1)
 ax4 = plt.subplot(2,2,4,sharex=ax2)
-size=5
+size=10
 ax1.scatter(x1,data1,marker='.',c="blue",s=size)
 ax2.scatter(x2,data2,marker='.',c="blue",s=size)
 ax3.scatter(x3,data3,marker='.',c="blue",s=size)
@@ -43,5 +44,5 @@ ax4.set_xlabel("$x/L$", fontsize=9,labelpad=-1)
 
 plt.tight_layout(rect=(-0.04,-0.04,1.04,1.04))
 plt.subplots_adjust(wspace=0.22)
-plt.savefig('../figures/fig6.pdf', dpi=600)
+plt.savefig('../figures/fig6.eps', dpi=1200)
 plt.show()

@@ -21,7 +21,7 @@ x = list(range(len(exact)))
 
 marker = '.'
 alpha = 1.0
-size = 9
+size = 10
 
 plt.scatter(x,exact,label="exact",marker=marker,c='black', s=size)
 plt.scatter(x,good,label="$n_{max}=4$ (optimal)",marker=marker,alpha=alpha,c='lime',s=size)
@@ -35,5 +35,5 @@ plt.tight_layout(rect=(-0.08,-0.08,1.04,1.05))
 plt.xticks(fontsize=7)
 plt.yticks(fontsize=7)
 plt.locator_params(axis='y', nbins=5) 
-plt.savefig('../figures/fig1.pdf', dpi=600)
+plt.savefig('../figures/fig1.eps', dpi=1200)
 plt.show()
