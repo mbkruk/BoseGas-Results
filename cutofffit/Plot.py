@@ -25,7 +25,7 @@ size = 10
 
 plt.scatter(x,exact,label="exact",marker=marker,c='black', s=size)
 plt.scatter(x,good,label="$n_{max}=4$ (optimal)",marker=marker,alpha=alpha,c='lime',s=size)
-plt.scatter(x,more,label="$n_{max}=5$",marker=marker,alpha=alpha,c='red',s=size)
+plt.scatter(x,more,label="$n_{max}=5$",marker=marker,alpha=alpha,c='indianred',s=size)
 plt.scatter(x,less,label="$n_{max}=3$",marker=marker,alpha=alpha,c='blue',s=size)
 plt.legend(fontsize=8)
 plt.xlabel('$N_{ex}$',fontsize=9,labelpad=-0.5)

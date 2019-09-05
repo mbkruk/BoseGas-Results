@@ -114,11 +114,11 @@ devX = [n*n/0.58 for n in devX]
 ax1.set_xscale("log")
 ax2.set_xscale("log")
 
-ax2.errorbar(dmcX,dmcF,marker='x',ls=' ',label='dd $l_{\perp}$=0.025 MC',c="red",markersize=size)
-ax2.errorbar(devX,devF,marker='.',ls=' ',label='dd $l_{\perp}$=0.025 EV', c="indianred",markersize=1.2*size)
+ax2.errorbar(dmcX,dmcF,marker='x',ls=' ',label='dd $l_{\perp}$=0.025 MC',c="indianred",markersize=size)
+ax2.errorbar(devX,devF,marker='.',ls=' ',label='dd $l_{\perp}$=0.025 EV', c="red",markersize=1.2*size)
 
-ax1.errorbar(dmcX,dmcY,yerr=dmcU,ls=' ',marker='x',label='dd $l_{\perp}$=0.025 MC',c="red",markersize=size)
-ax1.errorbar(devX,devY,marker='.',ls=' ',label='dd $l_{\perp}$=0.025 EV', c="indianred",markersize=1.2*size)
+ax1.errorbar(dmcX,dmcY,yerr=dmcU,ls=' ',marker='x',label='dd $l_{\perp}$=0.025 MC',c="indianred",markersize=size)
+ax1.errorbar(devX,devY,marker='.',ls=' ',label='dd $l_{\perp}$=0.025 EV', c="red",markersize=1.2*size)
 
 ax2.set_xlabel('$k_B T/\epsilon$',fontsize=9, labelpad=-0.5)
 ax1.set_xlabel('$k_B T/\epsilon$',fontsize=9, labelpad=-0.5)
