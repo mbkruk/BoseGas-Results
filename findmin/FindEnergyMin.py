@@ -22,7 +22,7 @@ else:
 
 N = float(sys.argv[1])
 extraModePairs = int(sys.argv[2])
-maxIter = 12
+maxIter = 20
 gammaMul = 2.0
 gamma = -(1.0+random.random())/1000.0
 maxMinGamma = float('-inf')
