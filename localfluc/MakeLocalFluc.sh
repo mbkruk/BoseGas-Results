@@ -1,9 +1,9 @@
 #!/bin/bash
 
 HELP="MakeLocalFluc.sh <0/1/2/3> <mc/max> <output dir>"
-AVERAGE_GAMMA="-0.011871523554730593"
-E_CONTACT=8
-E_DIPOLE=3
+AVERAGE_GAMMA="-0.015913540477747776"
+E_CONTACT=12
+E_DIPOLE=4
 MC_COUNT=32
 
 if [ "$#" -ne 3 ]
