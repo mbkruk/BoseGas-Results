@@ -11,10 +11,10 @@ plt.rc('xtick', labelsize=7)
 plt.rc('ytick', labelsize=7)
 
 
-data1 = np.loadtxt("n1-e7-contact.out.txt")
-data2 = np.loadtxt("n3-e7-contact.out.txt")
-data3 = np.loadtxt("n1-e7-dipole-0.060.out.txt")
-data4 = np.loadtxt("n3-e7-dipole-0.060.out.txt")
+data1 = np.loadtxt("data/n1-e12-contact.mc.out.txt")
+data2 = np.loadtxt("data/n3-e12-contact.mc.out.txt")
+data3 = np.loadtxt("data/n1-e4-dipole-0.060.mc.out.txt")
+data4 = np.loadtxt("data/n3-e4-dipole-0.060.mc.out.txt")
 
 
 x1 = np.linspace(-0.5,0.5,len(data1),endpoint=False)
