@@ -99,6 +99,9 @@ ax1.plot(x,f(x,*mdp),c='blue',linewidth=0.6,label='sqrt fit')
 ax1.locator_params(axis='y', nbins=5)
 ax1.legend(loc='upper left',fontsize=8) 
 
+ax1.tick_params(direction='in')
+ax2.tick_params(direction='in')
+
 output = "inset-"+(fname.replace(".npy",".pdf"))
 plt.savefig(output)
 print(output,flush=True)

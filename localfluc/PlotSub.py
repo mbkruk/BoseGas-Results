@@ -41,6 +41,11 @@ ax3.set_ylabel("$\Delta N/N$", fontsize=9,labelpad=-0.5)
 ax3.set_xlabel("$x/L$", fontsize=9,labelpad=-1)
 ax4.set_xlabel("$x/L$", fontsize=9,labelpad=-1)
 
+ax1.tick_params(direction='in')
+ax2.tick_params(direction='in')
+ax3.tick_params(direction='in')
+ax4.tick_params(direction='in')
+
 
 plt.tight_layout(rect=(-0.04,-0.04,1.04,1.04))
 plt.subplots_adjust(wspace=0.22)

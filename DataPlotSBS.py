@@ -114,6 +114,11 @@ devX = [n*n/0.58 for n in devX]
 ax1.set_xscale("log")
 ax2.set_xscale("log")
 
+ax1.tick_params(direction='in')
+ax2.tick_params(direction='in')
+ax1.tick_params(direction='in',which='minor')
+ax2.tick_params(direction='in',which='minor')
+
 ax2.errorbar(dmcX,dmcF,marker='x',ls=' ',label='dd $l_{\perp}$=0.025 MC',c="indianred",markersize=size)
 ax2.errorbar(devX,devF,marker='.',ls=' ',label='dd $l_{\perp}$=0.025 EV', c="red",markersize=1.2*size)
 

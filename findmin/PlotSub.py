@@ -114,6 +114,11 @@ ax3.set_ylabel('$\lambda/L$', fontsize=9,labelpad=-1)
 ax3.set_xlabel('$|g|$', fontsize=9)
 ax4.set_xlabel('$|g|$', fontsize=9)
 
+ax1.tick_params(direction='in')
+ax2.tick_params(direction='in')
+ax3.tick_params(direction='in')
+ax4.tick_params(direction='in')
+
 ax1.legend(bbox_to_anchor=(0,1.02,1,0.2), loc="lower left",
                 mode="expand", borderaxespad=0, ncol=1, fontsize=8)
 ax2.legend(bbox_to_anchor=(0,1.02,1,0.2), loc="lower left",
