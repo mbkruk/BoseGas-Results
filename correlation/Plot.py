@@ -65,7 +65,7 @@ for n in range(4,15+1):
 
 ax1.scatter(X,g2, marker='x', label='contact MC',c='blue',s=size,zorder=2)
 ax1.scatter(X,g3, marker='v', label='dd $l_{\perp}$=0.06 MC',c='indianred',s=size,zorder=2)
-ax1.set_xlabel('$k_B T/\epsilon$',fontsize=9, labelpad=-0.5)
+ax1.set_xlabel('$k_\mathit{B} T/\epsilon$',fontsize=9, labelpad=-0.5)
 ax1.set_ylabel('$L_\phi/L$',fontsize=9,labelpad=-1)
 ax1.locator_params(axis='y', nbins=5) 
 ax1.legend(fontsize=6,loc='upper right', bbox_to_anchor=(0.5, 0.99))

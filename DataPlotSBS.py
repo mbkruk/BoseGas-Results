@@ -125,8 +125,8 @@ ax2.errorbar(devX,devF,marker='.',ls=' ',label='dd $l_{\perp}$=0.025 EV', c="red
 ax1.errorbar(dmcX,dmcY,yerr=dmcU,ls=' ',marker='x',label='dd $l_{\perp}$=0.025 MC',c="indianred",markersize=size)
 ax1.errorbar(devX,devY,marker='.',ls=' ',label='dd $l_{\perp}$=0.025 EV', c="red",markersize=1.2*size)
 
-ax2.set_xlabel('$k_B T/\epsilon$',fontsize=9, labelpad=-0.5)
-ax1.set_xlabel('$k_B T/\epsilon$',fontsize=9, labelpad=-0.5)
+ax2.set_xlabel('$k_\mathit{B} T/\epsilon$',fontsize=9, labelpad=-0.5)
+ax1.set_xlabel('$k_\mathit{B} T/\epsilon$',fontsize=9, labelpad=-0.5)
 
 ax2.set_ylabel("$\\sqrt{Var[n_0]}$",fontsize=9)
 ax2.legend(fontsize=5.6,loc='upper left')
