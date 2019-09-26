@@ -87,7 +87,7 @@ print("MD chi^2_r =",mdchi2red,flush=True)
 ax2.set_ylim((0,(maxh+min(delta0,2*maxh))/2*1.05))
 x = np.linspace(np.min(ldx),np.max(ldx),256)
 y = gauss(x,*hp)
-ax2.plot(x,y,linewidth=1.3,label='Gaussian fit',c='orange')
+ax2.plot(x,y,linewidth=1.0,label='Gaussian fit',c='orange')
 ax2.legend(loc='upper left', fontsize=4.5,handlelength=0.5)
 
 ax1.set_xlabel("MC steps",fontsize=9)
