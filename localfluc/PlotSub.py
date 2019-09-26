@@ -48,6 +48,6 @@ ax4.tick_params(direction='in')
 
 
 plt.tight_layout(rect=(-0.04,-0.04,1.04,1.04))
-plt.subplots_adjust(wspace=0.22)
+plt.subplots_adjust(wspace=0.22, hspace=0.12)
 plt.savefig('../figures/fig6.eps', dpi=1200)
 plt.show()
