@@ -93,9 +93,9 @@ ax2.legend(loc='upper left', fontsize=4.5,handlelength=0.5)
 ax1.set_xlabel("MC steps",fontsize=9)
 ax1.set_ylabel("$<|x|>$",fontsize=9, labelpad=-1)
 
-ax1.errorbar(t,mdm,yerr=mdu,c='red')
+ax1.errorbar(t,mdm,yerr=mdu,c='red',zorder=1)
 x = np.linspace(0,mdn,256)
-ax1.plot(x,f(x,*mdp),c='blue',linewidth=0.6,label='sqrt fit')
+ax1.plot(x,f(x,*mdp),c='blue',linewidth=0.6,label='sqrt fit',zorder=0)
 ax1.locator_params(axis='y', nbins=5)
 ax1.legend(loc='upper left',fontsize=8) 
 
