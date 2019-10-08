@@ -40,7 +40,7 @@ def step(gamma):
 	fails = 0
 	lines = 0
 	while True:
-		result = subprocess.run(["bgmc","-c","-N",str(N),"-f","5","-g",str(gamma),"-n","1","-e",str(extraModePairs),*options],stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+		result = subprocess.run(["bgmc","-c","-N",str(N),"-B","1024","-g",str(gamma),"-n","1","-e",str(extraModePairs),*options],stdout=subprocess.PIPE,stderr=subprocess.PIPE)
 		data = result.stdout.decode("utf-8").split('\n')
 		lines += len(data)-1
 		data = data[-2].split()
