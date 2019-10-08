@@ -1,7 +1,12 @@
 #!/usr/bin/env python3
 
+import sys
 import numpy as np
 from matplotlib import pyplot as plt
+
+if len(sys.argv)!=6:
+	print("usage: Plot.py <exact> <good> <more> <less> <output>",flush=True)
+	exit(1)
 
 def load(fname):
 	with open(fname) as f:
@@ -12,10 +17,10 @@ def load(fname):
 plt.rcParams['figure.figsize'] = [8.5/2.54, 2.5]
 plt.rcParams['axes.linewidth'] = 0.6
 
-exact = load("fit-N=100-beta=0.03625-exact.txt")
-good = load("fit-N=100-beta=0.03625-cf-ok.txt")
-more = load("fit-N=100-beta=0.03625-cf+1.txt")
-less = load("fit-N=100-beta=0.03625-cf-1.txt")
+exact = load(sys.argv[1])
+good = load(sys.argv[2])
+more = load(sys.argv[3])
+less = load(sys.argv[4])
 
 x = list(range(len(exact)))
 
@@ -37,6 +42,5 @@ plt.tight_layout(rect=(-0.08,-0.08,1.04,1.05))
 plt.xticks(fontsize=7)
 ax.tick_params(direction='in')
 plt.yticks(fontsize=7)
-plt.locator_params(axis='y', nbins=5) 
-plt.savefig('../figures/fig1.eps', dpi=1200)
-plt.show()
+plt.locator_params(axis='y', nbins=5)
+plt.savefig(sys.argv[5], dpi=1200)
