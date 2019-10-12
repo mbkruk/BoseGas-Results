@@ -13,7 +13,10 @@ int main(int argc, const char *argv[])
 	char interstr[128];
 	uint32_t total_alphas = 0;
 	if (argc<=1)
-		return 0;
+	{
+		fprintf(stderr,"usage: combine <input 1> <input 2> ... > <output>\n");
+		return 1;
+	}
 	for (int fidx=1;fidx<argc;++fidx)
 	{
 		f = fopen(argv[fidx],"r");

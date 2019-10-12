@@ -7,14 +7,14 @@ from scipy import optimize as spopt
 
 plt.rcParams['figure.figsize'] = [8.5/2.54, 8.5/2.54]
 plt.rcParams['axes.linewidth'] = 0.6
-plt.rc('xtick', labelsize=7) 
+plt.rc('xtick', labelsize=7)
 plt.rc('ytick', labelsize=7)
 
 
-data1 = np.loadtxt("data/n1-e12-contact.mc.out.txt")
-data2 = np.loadtxt("data/n3-e12-contact.mc.out.txt")
-data3 = np.loadtxt("data/n1-e4-dipole-0.060.mc.out.txt")
-data4 = np.loadtxt("data/n3-e4-dipole-0.060.mc.out.txt")
+data1 = np.loadtxt(sys.argv[1])
+data2 = np.loadtxt(sys.argv[2])
+data3 = np.loadtxt(sys.argv[3])
+data4 = np.loadtxt(sys.argv[4])
 
 
 x1 = np.linspace(-0.5,0.5,len(data1),endpoint=False)
@@ -49,5 +49,6 @@ ax4.tick_params(direction='in')
 
 plt.tight_layout(rect=(-0.04,-0.04,1.04,1.04))
 plt.subplots_adjust(wspace=0.22, hspace=0.12)
-plt.savefig('../figures/fig6.eps', dpi=1200)
-plt.show()
+plt.savefig(sys.argv[5], dpi=1200)
+#plt.show()
+
