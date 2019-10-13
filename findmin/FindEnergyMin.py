@@ -34,8 +34,6 @@ def finish(*range):
 	print(range,flush=True)
 	print((range[0]+range[1])/2.0,flush=True)
 	exit()
-(-0.005854559158084201, -0.004732002568777352)
--0.0052932808634307766
 
 def step(gamma):
 	cmpl = [0,0,0]
