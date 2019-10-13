@@ -22,7 +22,7 @@ else:
 
 N = float(sys.argv[1])
 extraModePairs = int(sys.argv[2])
-maxIter = 20
+maxIter = 12
 gammaMul = 2.0
 #gamma = -(1.0+random.random())/1000.0
 gamma = -0.017242898991634857*(1.0+(random.random()-0.5)/10)
@@ -34,12 +34,14 @@ def finish(*range):
 	print(range,flush=True)
 	print((range[0]+range[1])/2.0,flush=True)
 	exit()
+(-0.005854559158084201, -0.004732002568777352)
+-0.0052932808634307766
 
 def step(gamma):
 	cmpl = [0,0,0]
 	fails = 0
 	lines = 0
-	while True:
+	while np.sum(cmpl)<3:
 		result = subprocess.run(["bgmc","-c","-N",str(N),"-S","1024","-g",str(gamma),"-n","1","-e",str(extraModePairs),*options],stdout=subprocess.PIPE,stderr=subprocess.PIPE)
 		data = result.stdout.decode("utf-8").split('\n')
 		lines += len(data)-1
@@ -58,10 +60,12 @@ def step(gamma):
 			valid = False
 		if valid:
 			cmpl[order] += 1
-		scmpl = sorted(cmpl)
-		if scmpl[-1]-scmpl[-2]>2:
-			break
-	order = np.argmax(cmpl)-1
+
+	order = -1*cmpl[0]+0*cmpl[1]+1*cmpl[2]
+	if order<0:
+		order = -1
+	elif order>0:
+		order = 1
 	print(str(gamma).rjust(16),order,cmpl,lines,fails,flush=True)
 	return order
 
