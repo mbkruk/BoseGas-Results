@@ -59,11 +59,13 @@ def step(gamma):
 		if valid:
 			cmpl[order] += 1
 
-	order = -1*cmpl[0]+0*cmpl[1]+1*cmpl[2]
-	if order<0:
+	order = (-1*cmpl[0]+0*cmpl[1]+1*cmpl[2])/np.sum(cmpl)
+	if order<-0.5:
 		order = -1
-	elif order>0:
+	elif order>0.5:
 		order = 1
+	else:
+		order = 0
 	print(str(gamma).rjust(16),order,cmpl,lines,fails,flush=True)
 	return order
 
