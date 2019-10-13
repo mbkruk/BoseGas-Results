@@ -42,7 +42,7 @@ TARGET2="$DATA$NAME.$LF_METHOD.localfluc"
 case "$4" in
 	"mk")
 		echo "$TARGET1:"
-		echo -e "\t$CMD -o $TARGET1 &> $TARGET1.progress"
+		echo -e "\t$CMD -o $TARGET1 > $TARGET1.progress 2>&1"
 		echo
 		echo "$TARGET2: localfluc $TARGET1"
 		echo -e "\t./localfluc $LF_METHOD < $TARGET1 > $TARGET2 2> $TARGET2.progress"
