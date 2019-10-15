@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
 help = '''
-	usage: FindMinEnergy.py <particle count> <extra mode pairs>
+	usage: FindMinEnergy.py <particle count> <extra mode pairs> [interaction coefficients file]
 	Interaction strength range for which energy reaches minimum.
-	Defalt interaction type is gaussian.
+        Default interaction type is contact.
 '''
 
 import sys
