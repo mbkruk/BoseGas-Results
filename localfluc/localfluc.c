@@ -7,7 +7,7 @@
 #include <time.h>
 #include <string.h>
 
-#define MODE_MAX 32
+#define MODE_MAX 64
 #define SAMPLE_RATE_MAX 32768
 #define BIN_COUNT 101
 #define SKIP 2
@@ -100,7 +100,7 @@ int main(int argc, const char *argv[])
 			scanf("%lf",re+i);
 		for (uint32_t i=0;i<ntotal;++i)
 			scanf("%lf",im+i);
-		
+
 		if (aidx%SKIP)
 			continue;
 
@@ -191,10 +191,10 @@ int main(int argc, const char *argv[])
 
 		return 0;*/
 	}
-	
+
 	double *mean = malloc(sizeof(double)*BIN_COUNT);
 	double *std = malloc(sizeof(double)*BIN_COUNT);
-	
+
 	for (uint32_t j=0;j<BIN_COUNT;++j)
 	{
 		mean[j] = 0.0;
