@@ -1,9 +1,9 @@
 #!/bin/bash
 
 HELP="MakeLocalFluc.sh <0/1/2/3> <mc/max> <output dir> <mk/output>"
-AVERAGE_GAMMA="-0.015913540477747776"
-E_CONTACT=12
-E_DIPOLE=4
+AVERAGE_GAMMA="-0.0207199"
+E_CONTACT=17
+E_DIPOLE=5
 
 if [ "$#" -ne 4 ]
 then
