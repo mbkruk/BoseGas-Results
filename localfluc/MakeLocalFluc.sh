@@ -1,9 +1,9 @@
 #!/bin/bash
 
 HELP="MakeLocalFluc.sh <0/1/2/3> <mc/max> <output dir> <mk/output>"
-AVERAGE_GAMMA="-0.0207199"
-E_CONTACT=17
-E_DIPOLE=5
+AVERAGE_GAMMA="-0.0219365"
+E_CONTACT=18
+E_DIPOLE=6
 
 if [ "$#" -ne 4 ]
 then
@@ -25,11 +25,11 @@ case "$1" in
 	;;
 	"2")
 		NAME="n1-e${E_DIPOLE}-dipole-0.060"
-		CMD="bgmc -N 100 -n 1 -e $E_DIPOLE -g $AVERAGE_GAMMA -I ../intcoeff/dipol-0.060.in -a"
+		CMD="bgmc -N 100 -n 1 -e $E_DIPOLE -g $AVERAGE_GAMMA -I ../intcoeff/dipol-0.050.in -a"
 	;;
 	"3")
 		NAME="n3-e${E_DIPOLE}-dipole-0.060"
-		CMD="bgmc -N 100 -n 3 -e $E_DIPOLE -g $AVERAGE_GAMMA -I ../intcoeff/dipol-0.060.in -a"
+		CMD="bgmc -N 100 -n 3 -e $E_DIPOLE -g $AVERAGE_GAMMA -I ../intcoeff/dipol-0.050.in -a"
 	;;
 	*)
 		echo $HELP
