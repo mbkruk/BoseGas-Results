@@ -8,7 +8,7 @@
 #include <string.h>
 
 #define MODE_MAX 64
-#define SAMPLE_RATE_MAX 32768
+#define SAMPLE_RATE_MAX 131072
 #define BIN_COUNT 101
 #define SKIP 2
 
